@@ -5,40 +5,49 @@ using UnityEngine;
 public class PlayerMovementController : MonoBehaviour {
 
     public float velocity = 2.0f;
+    PhotonView m_photon_view;
 
-	void Update () {
-        bool isClicking = false;
+    private void Start()
+    {
+        m_photon_view = this.GetComponent<PhotonView>();
+    }
 
-        Vector3 myVelocity = Vector3.zero;
+    void Update () {
+        if (m_photon_view.owner.ID == PhotonNetwork.player.ID)
+        {
+            bool isClicking = false;
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            myVelocity += Vector3.up * velocity;
-            isClicking = true;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            myVelocity -= Vector3.right * velocity;
-            isClicking = true;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            myVelocity -= Vector3.up * velocity;
-            isClicking = true;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            myVelocity += Vector3.right * velocity;
-            isClicking = true;
-        }
+            Vector3 myVelocity = Vector3.zero;
 
-        if (isClicking)
-        {
-            this.GetComponent<Rigidbody2D>().velocity = myVelocity;
-        }
-        else
-        {
-            this.GetComponent<Rigidbody2D>().velocity /= 1.05f;
+            if (Input.GetKey(KeyCode.W))
+            {
+                myVelocity += Vector3.up * velocity;
+                isClicking = true;
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                myVelocity -= Vector3.right * velocity;
+                isClicking = true;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                myVelocity -= Vector3.up * velocity;
+                isClicking = true;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                myVelocity += Vector3.right * velocity;
+                isClicking = true;
+            }
+
+            if (isClicking)
+            {
+                this.GetComponent<Rigidbody2D>().velocity = myVelocity;
+            }
+            else
+            {
+                this.GetComponent<Rigidbody2D>().velocity /= 1.05f;
+            }
         }
     }
 }

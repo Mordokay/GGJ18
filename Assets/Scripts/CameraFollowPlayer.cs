@@ -5,22 +5,12 @@ using UnityEngine;
 public class CameraFollowPlayer : MonoBehaviour {
 
 
-    GameObject player;
-
-    private void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
+    public GameObject player;
 
     void Update () {
-        if(player == null)
-        {
-            player = GameObject.FindGameObjectWithTag("Player");
-        }
-        else
+        if(player != null)
         {
             this.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10.0f);
         }
-
     }
 }
