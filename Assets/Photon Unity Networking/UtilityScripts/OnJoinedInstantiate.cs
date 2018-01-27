@@ -3,9 +3,8 @@ using System.Collections;
 
 public class OnJoinedInstantiate : MonoBehaviour
 {
-    public Transform SpawnPosition;
-    public float PositionOffset = 2.0f;
-    public GameObject[] PrefabsToInstantiate;   // set in inspector
+    public Transform[] SpawnPositions;
+    public GameObject[] PrefabsToInstantiate;
 
     public void OnJoinedRoom()
     {
@@ -15,18 +14,13 @@ public class OnJoinedInstantiate : MonoBehaviour
             {
                 Debug.Log("Instantiating: " + o.name);
 
-                Vector3 spawnPos = Vector3.up;
-                if (this.SpawnPosition != null)
+                Vector3 spawnPos = Vector3.zero;
+                if (this.SpawnPositions.Length > 0)
                 {
-                    spawnPos = this.SpawnPosition.position;
+                    spawnPos = this.SpawnPositions[Random.Range(0, SpawnPositions.Length)].position;
                 }
 
-                Vector3 random = Random.insideUnitSphere;
-                random.y = 0;
-                random = random.normalized;
-                Vector3 itempos = spawnPos + this.PositionOffset * random;
-
-                PhotonNetwork.Instantiate(o.name, itempos, Quaternion.identity, 0);
+                PhotonNetwork.Instantiate(o.name, spawnPos, Quaternion.identity, 0);
             }
         }
     }

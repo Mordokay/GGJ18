@@ -35,8 +35,6 @@ public class JumpAndRunMovement : MonoBehaviour
         UpdateIsRunning();
         UpdateFacingDirection();
 
-       
-
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             m_PhotonView.RPC("UpdateLabel", PhotonTargets.All, "hello", 0, PhotonNetwork.playerName);
