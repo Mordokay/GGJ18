@@ -20,7 +20,7 @@ public class OnJoinedInstantiate : MonoBehaviour
                     spawnPos = this.SpawnPositions[Random.Range(0, SpawnPositions.Length)].position;
                 }
 
-                PhotonNetwork.Instantiate(o.name, spawnPos, Quaternion.identity, 0);
+                PhotonNetwork.Instantiate(name, spawnPos, Quaternion.identity, 0);
             }
         }
     }

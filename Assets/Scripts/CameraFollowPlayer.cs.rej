@@ -1,0 +1,28 @@
+diff a/Assets/Scripts/CameraFollowPlayer.cs b/Assets/Scripts/CameraFollowPlayer.cs	(rejected hunks)
+@@ -5,22 +5,12 @@
+ public class CameraFollowPlayer : MonoBehaviour {
+ 
+ 
+-    GameObject player;
+-
+-    private void Start()
+-    {
+-        player = GameObject.FindGameObjectWithTag("Player");
+-    }
++    public GameObject player;
+ 
+     void Update () {
+-        if(player == null)
+-        {
+-            player = GameObject.FindGameObjectWithTag("Player");
+-        }
+-        else
++        if(player != null)
+         {
+             this.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10.0f);
+         }
+-
+     }
+-}
++}
+\ No newline at end of file
