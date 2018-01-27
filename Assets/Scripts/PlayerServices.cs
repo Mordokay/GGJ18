@@ -118,16 +118,6 @@ public class JumpAndRunMovement : MonoBehaviour
         }
     }
 
-    [PunRPC]
-    void UpdateLabel(string message, int value, string playerStringID)
-    {
-        if (PhotonNetwork.playerName.Equals(playerStringID))
-        {
-            myLabel.text = message + " <V> " + value + "Player";
-        }
-        //myLabel.text = message + " <V> " + value;
-    }
-
     void UpdateMovement()
     {
         Vector2 movementVelocity = m_Body.velocity;
