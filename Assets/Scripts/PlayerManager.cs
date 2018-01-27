@@ -9,22 +9,20 @@ namespace Assets.Scripts
 {
     class PlayerManager : MonoBehaviour
     {
-        public Text _player_label;
         private PlayerInfo info;
-
+        public Text label;
         void Start()
         {
             info = GetComponent<PlayerInfo>();
-            _player_label.text = info.GetSequence().ToString();
-
-            _player_label = Instantiate(_player_label.gameObject).GetComponent<Text>();
-            _player_label.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 10, this.transform.position.z);
+            Vector3 label_position = new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z);
+            label.gameObject.transform.position = label_position;
         }
 
         void Update()
         {
-            _player_label.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 10, this.transform.position.z);
-            _player_label.text = info.GetSequence().ToString();
+            Vector3 label_position = new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z);
+            label.gameObject.transform.position = label_position;
+            label.text = new string(info.GetSequence().ToArray<char>());
         }
 
     }
