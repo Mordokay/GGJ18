@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    class Player : MonoBehaviour
+    class PlayerInfo : MonoBehaviour
     {
         private List<char> _sequence;
         private char _currentState;
