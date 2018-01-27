@@ -6,6 +6,13 @@ public class OnJoinedInstantiate : MonoBehaviour
     public Transform[] SpawnPositions;
     public GameObject[] PrefabsToInstantiate;
 
+    private void Awake()
+    {
+        //Increases send rate of packages
+        PhotonNetwork.sendRate = 60;
+        PhotonNetwork.sendRateOnSerialize = 30;
+    }
+
     public void OnJoinedRoom()
     {
         if (this.PrefabsToInstantiate != null)
