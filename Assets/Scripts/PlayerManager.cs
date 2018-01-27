@@ -18,10 +18,11 @@ namespace Assets.Scripts
         int counter;
 
         bool hidding = false;
+        float hiddenTime = 0.0f;
+        /*
         bool scallingDown = false;
         bool scallingUp = false;
-        float hiddenTime = 0.0f;
-
+        */
         float timeSinceLastAbilityUse = 0.0f;
         public float abilityCooldown = 1.0f;
 
@@ -43,46 +44,57 @@ namespace Assets.Scripts
             if (hidding)
             {
                 hiddenTime += Time.deltaTime;
-                if (scallingDown)
+                if (hiddenTime > 2.0f)
                 {
-                    if(hiddenTime < 0.25f)
-                    {
-                        this.transform.localScale = Vector3.one * ((0.25f - hiddenTime) / 0.25f);
-                    }
-                    else
-                    {
-                        scallingDown = false;
-                    }
-                }
-                else if (scallingUp)
-                {
-                    if (hiddenTime < 2.0f)
-                    {
-                        this.transform.localScale = Vector3.one * ((hiddenTime - 1.75f) / 0.25f);
-                    }
-                    else
-                    {
-                        scallingUp = false;
-                        hidding = false;
-                        this.transform.localScale = Vector3.one;
-                        hiddenTime = 0.0f;
-                        this.GetComponent<CircleCollider2D>().enabled = true;
-                    }
-                }
-                else
-                {
-                    this.GetComponent<CircleCollider2D>().enabled = false;
-                    if (hiddenTime > 1.75f)
-                    {
-                        scallingUp = true;
-                    }
-                    //He is hidden
+                    hidding = false;
+                    hiddenTime = 0.0f;
+                    this.GetComponent<CircleCollider2D>().enabled = true;
                 }
             }
             else
             {
                 timeSinceLastAbilityUse += Time.deltaTime;
             }
+            /*
+            if (scallingDown)
+            {
+                if(hiddenTime < 0.25f)
+                {
+                    this.transform.localScale = Vector3.one * ((0.25f - hiddenTime) / 0.25f);
+                }
+                else
+                {
+                    scallingDown = false;
+                }
+            }
+            else if (scallingUp)
+            {
+                if (hiddenTime < 2.0f)
+                {
+                    this.transform.localScale = Vector3.one * ((hiddenTime - 1.75f) / 0.25f);
+                }
+                else
+                {
+                    scallingUp = false;
+                    hidding = false;
+                    this.transform.localScale = Vector3.one;
+                    hiddenTime = 0.0f;
+                    this.GetComponent<CircleCollider2D>().enabled = true;
+                }
+            }
+            else
+            {
+                this.GetComponent<CircleCollider2D>().enabled = false;
+                if (hiddenTime > 1.75f)
+                {
+                    scallingUp = true;
+                }
+                //He is hidden
+            }
+
+        }
+        */
+
 
             Vector3 label_position = new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z);
             _sequence_label.gameObject.transform.position = label_position;
@@ -98,7 +110,7 @@ namespace Assets.Scripts
                         Instantiate(Resources.Load("WaveController"), this.transform.transform);
 
                         hidding = true;
-                        scallingDown = true;
+                        //scallingDown = true;
                         timeSinceLastAbilityUse = 0.0f;
                     }
                 }
