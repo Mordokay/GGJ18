@@ -24,12 +24,12 @@ namespace Assets.Scripts
             int sequence_number;
             for (int i = 0; i < PlayerConsts.SEQUENCE_NUMBER; i ++)
             {
-                sequence_number = _random_generator.Next(1, 4);
+                sequence_number = _random_generator.Next(0, 4);
                 char sequence_state = Convert.ToChar(PlayerConsts.SEQUENCE_STATES[sequence_number]);
                 _sequence.Add(sequence_state);
             }
 
-            sequence_number = _random_generator.Next(1, 4);
+            sequence_number = _random_generator.Next(0, 4);
             _currentState = Convert.ToChar(PlayerConsts.SEQUENCE_STATES[sequence_number]);
 
             string debug_seq = "";
@@ -38,6 +38,25 @@ namespace Assets.Scripts
                 debug_seq += c;
             }
             Debug.Log(debug_seq);
+        }
+
+        private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.isWriting)
+            {
+                stream.SendNext(new string (_sequence.ToArray<char>()));
+                stream.SendNext(new string (_stack.ToArray<char>()));
+                stream.SendNext(_currentState);
+            }
+            else
+            {
+                var sequence = (List<char>)stream.ReceiveNext();
+                var stack = (List<char>)stream.ReceiveNext();
+
+                _sequence = new List<char>(sequence.ToArray());
+                _stack = new List<char>(stack.ToArray());
+                _currentState = (char)stream.ReceiveNext();
+            }
         }
 
         public char GetState()

@@ -41,7 +41,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void SmoothMove()
     {
-        if(Vector3.Distance(TargetPosition, transform.position) > 0.05f)
+        if(Vector3.Distance(TargetPosition, transform.position) > 0.1f)
         {
             transform.position = Vector3.Lerp(transform.position, TargetPosition, 0.25f);
         }
