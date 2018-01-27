@@ -20,6 +20,7 @@ public class OnJoinedInstantiate : MonoBehaviour
                     spawnPos = this.SpawnPositions[Random.Range(0, SpawnPositions.Length)].position;
                 }
 
+                PhotonNetwork.Instantiate(name, spawnPos, Quaternion.identity, 0);
                 GameObject myPlayer = PhotonNetwork.Instantiate(o.name, spawnPos, Quaternion.identity, 0);
                 Camera.main.GetComponent<CameraFollowPlayer>().player = myPlayer;
             }
