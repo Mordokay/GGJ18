@@ -235,10 +235,11 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 4874559415133252}
+  - {fileID: 114787206518391978}
+  - {fileID: 114405542329501914}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114405542329501914
@@ -254,6 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sequence_label: {fileID: 114566717009570990}
   _state_label: {fileID: 114140704387134076}
+  abilityCooldown: 1
 --- !u!114 &114566717009570990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -298,7 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d76fa17e7a0dc454abaea6492321a0d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 6
+  velocity: 3.5
 --- !u!212 &212226621805093070
 SpriteRenderer:
   m_ObjectHideFlags: 1
