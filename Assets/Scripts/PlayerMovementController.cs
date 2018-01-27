@@ -2,52 +2,86 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovementController : MonoBehaviour {
+public class PlayerMovementController : MonoBehaviour
+{
 
     public float velocity = 2.0f;
-    PhotonView m_photon_view;
+
+    private PhotonView m_photon_view;
+    private Vector3 TargetPosition;
+    //Only used if we want to update rotation in the future
+    //private Quaternion TargetRotation;
 
     private void Start()
     {
         m_photon_view = this.GetComponent<PhotonView>();
     }
 
-    void Update () {
-        if (m_photon_view.owner.ID == PhotonNetwork.player.ID)
+    void Update()
+    {
+        if (m_photon_view.isMine)
+            CheckInput();
+        else
+            SmoothMove();
+    }
+
+    private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
         {
-            bool isClicking = false;
+            stream.SendNext(transform.position);
+            //stream.SendNext(transform.rotation);
+        }
+        else
+        {
+            TargetPosition = (Vector3)stream.ReceiveNext();
+            //TargetRotation = (Quaternion)stream.ReceiveNext();
+        }
+    }
 
-            Vector3 myVelocity = Vector3.zero;
+    private void SmoothMove()
+    {
+        if(Vector3.Distance(TargetPosition, transform.position) > 0.05f)
+        {
+            transform.position = Vector3.Lerp(transform.position, TargetPosition, 0.25f);
+        }
+        //transform.rotation = Quaternion.RotateTowards(transform.rotation, TargetRotation, 500 * Time.deltaTime);
+    }
 
-            if (Input.GetKey(KeyCode.W))
-            {
-                myVelocity += Vector3.up * velocity;
-                isClicking = true;
-            }
-            if (Input.GetKey(KeyCode.A))
-            {
-                myVelocity -= Vector3.right * velocity;
-                isClicking = true;
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                myVelocity -= Vector3.up * velocity;
-                isClicking = true;
-            }
-            if (Input.GetKey(KeyCode.D))
-            {
-                myVelocity += Vector3.right * velocity;
-                isClicking = true;
-            }
+    void CheckInput()
+    {
+        bool isClicking = false;
 
-            if (isClicking)
-            {
-                this.GetComponent<Rigidbody2D>().velocity = myVelocity;
-            }
-            else
-            {
-                this.GetComponent<Rigidbody2D>().velocity /= 1.05f;
-            }
+        Vector3 myVelocity = Vector3.zero;
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            myVelocity += Vector3.up * velocity;
+            isClicking = true;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            myVelocity -= Vector3.right * velocity;
+            isClicking = true;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            myVelocity -= Vector3.up * velocity;
+            isClicking = true;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            myVelocity += Vector3.right * velocity;
+            isClicking = true;
+        }
+
+        if (isClicking)
+        {
+            this.GetComponent<Rigidbody2D>().velocity = myVelocity;
+        }
+        else
+        {
+            this.GetComponent<Rigidbody2D>().velocity /= 1.05f;
         }
     }
 }
