@@ -1251,11 +1251,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 466690054d00a894c81674414f8a6484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Sequence: 
+  Stack: 
   CurrentState: 0
-  StateG: {fileID: 21300000, guid: f26c7374a1c28e94f93fe9a44c35522b, type: 3}
-  StateT: {fileID: 21300000, guid: af07924d3b92acf48bdbe01b74608ed9, type: 3}
-  StateA: {fileID: 21300000, guid: a5d460239a6dcd3499dee7442343d7e4, type: 3}
-  StateC: {fileID: 21300000, guid: e42058b1b8253b046a9af7eb75810aaf, type: 3}
+  StateG: {fileID: 21300000, guid: 46be1b98f1c8cb54ca73c1af89306d7e, type: 3}
+  StateT: {fileID: 21300000, guid: 247197d73fa71554287e2d45a0c67f98, type: 3}
+  StateA: {fileID: 21300000, guid: cb33adfeed23ec548aa0d651baa962c6, type: 3}
+  StateC: {fileID: 21300000, guid: cfd51180aaca450429c538e1df7eedf7, type: 3}
 --- !u!114 &114224239094436222
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1561,6 +1563,7 @@ MonoBehaviour:
   _sequence_label: {fileID: 114846467837114712}
   _stack_label: {fileID: 114566717009570990}
   _state_label: {fileID: 114140704387134076}
+  game_started: 0
   abilityCooldown: 1
 --- !u!114 &114454560949689402
 MonoBehaviour:

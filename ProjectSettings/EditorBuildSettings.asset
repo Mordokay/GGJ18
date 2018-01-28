@@ -6,5 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/GGJ18Lobby.unity
+    guid: a639fc1fb46526c41a5e354ae93d83c5
+  - enabled: 1
     path: Assets/GGJ18.unity
     guid: 2cd8533503c3ea649b6c543c6126c811

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Scripts
@@ -51,7 +52,7 @@ namespace Assets.Scripts
             if (PhotonNetwork.playerList.Count() <= PlayerConsts.PLAYER_NUMBER)
             {
                 GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(2).gameObject.SetActive(true);
-                GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(2).GetComponentInChildren<Text>().text = "Waiting for 3 Players...";
+                GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(2).GetComponentInChildren<Text>().text = "Waiting for 2 Players...";
             }
         }
 
@@ -89,67 +90,70 @@ namespace Assets.Scripts
             {
                 if (PhotonNetwork.isMasterClient)
                 {
-                    bool hasA = false;
-                    bool hasG = false;
-                    bool hasC = false;
-                    bool hasT = false;
+                    int hasA = 0;
+                    int hasG = 0;
+                    int hasC = 0;
+                    int hasT = 0;
 
                     foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
                     {
                         switch (player.GetComponent<PlayerInfo>().CurrentState)
                         {
                             case "A":
-                                hasA = true;
+                                hasA += 1;
                                 break;
                             case "C":
-                                hasC = true;
+                                hasC += 1;
                                 break;
                             case "G":
-                                hasG = true;
+                                hasG += 1;
                                 break;
                             case "T":
-                                hasT = true;
+                                hasT += 1;
                                 break;
                         }
                     }
 
                     if (GameObject.FindGameObjectWithTag("ResourceA") != null)
                     {
-                        hasA = true;
+                        hasA += GameObject.FindGameObjectsWithTag("ResourceA").Length;
                     }
                     if (GameObject.FindGameObjectWithTag("ResourceT") != null)
                     {
-                        hasT = true;
+                        hasT += GameObject.FindGameObjectsWithTag("ResourceT").Length;
                     }
                     if (GameObject.FindGameObjectWithTag("ResourceG") != null)
                     {
-                        hasG = true;
+                        hasG += GameObject.FindGameObjectsWithTag("ResourceG").Length;
                     }
                     if (GameObject.FindGameObjectWithTag("ResourceC") != null)
                     {
-                        hasC = true;
+                        hasC += GameObject.FindGameObjectsWithTag("ResourceC").Length;
                     }
 
-                    string result = "";
-                    if (!hasA)
+                    while (hasA <= 1)
                     {
                         PhotonNetwork.Instantiate("ResourceA", new Vector3(UnityEngine.Random.Range(-16.0f, 16.0f),
                             UnityEngine.Random.Range(-13.0f, 13.4f), 0.0f), Quaternion.identity, 0);
+                        hasA += 1;
                     }
-                    if (!hasT)
+                    while (hasT <= 1)
                     {
                         PhotonNetwork.Instantiate("ResourceT", new Vector3(UnityEngine.Random.Range(-16.0f, 16.0f),
                              UnityEngine.Random.Range(-13.0f, 13.4f), 0.0f), Quaternion.identity, 0);
+                        hasT += 1;
                     }
-                    if (!hasG)
+                    while (hasG <= 1)
                     {
                         PhotonNetwork.Instantiate("ResourceG", new Vector3(UnityEngine.Random.Range(-16.0f, 16.0f),
                             UnityEngine.Random.Range(-13.0f, 13.4f), 0.0f), Quaternion.identity, 0);
+                        hasG += 1;
                     }
-                    if (!hasC)
+                    while (hasC <= 1)
                     {
                         PhotonNetwork.Instantiate("ResourceC", new Vector3(UnityEngine.Random.Range(-16.0f, 16.0f),
                             UnityEngine.Random.Range(-13.0f, 13.4f), 0.0f), Quaternion.identity, 0);
+                        hasC += 1;
                     }
                     //Debug.Log("I am the master!!! with " + result);
                 }
@@ -206,7 +210,7 @@ namespace Assets.Scripts
 
                             PhotonNetwork.Instantiate("WaveSound1", this.transform.position, Quaternion.identity, 0);
 
-                            StartCoroutine(FadeTo(0.25f, 0.5f));
+                            StartCoroutine(FadeTo(0.1f, 0.5f));
                         }
                     }
                 }

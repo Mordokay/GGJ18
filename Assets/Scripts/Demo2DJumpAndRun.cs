@@ -1,8 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Demo2DJumpAndRun : MonoBehaviour 
 {
+    public void ReturnToLoby()
+    {
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.room.IsOpen = false;
+        PhotonNetwork.room.IsVisible = false;
+        PhotonNetwork.room.EmptyRoomTtl = 5;
+        SceneManager.LoadScene(0);
+    }
+
     void OnJoinedRoom()
     {
         if( PhotonNetwork.isMasterClient == false )
