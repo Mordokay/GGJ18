@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts
 {
@@ -13,6 +14,11 @@ namespace Assets.Scripts
         public string Stack { get; set; }
 
         public string CurrentState;
+
+        public Sprite StateG;
+        public Sprite StateT;
+        public Sprite StateA;
+        public Sprite StateC;
 
         private System.Random _random_generator;
 
@@ -28,19 +34,42 @@ namespace Assets.Scripts
             }
 
             CurrentState = PlayerConsts.SEQUENCE_STATES[UnityEngine.Random.Range(0, PlayerConsts.SEQUENCE_STATES.Length)];
+            ChangeSprite();
+        }
+
+        void ChangeSprite()
+        {
+            switch (CurrentState)
+            {
+                case "A":
+                    this.GetComponent<SpriteRenderer>().sprite = StateA;
+                    break;
+                case "T":
+                    this.GetComponent<SpriteRenderer>().sprite = StateT;
+                    break;
+                case "G":
+                    this.GetComponent<SpriteRenderer>().sprite = StateG;
+                    break;
+                case "C":
+                    this.GetComponent<SpriteRenderer>().sprite = StateC;
+                    break;
+            }
         }
 
         public void ReceiveState(string state)
         {
             CurrentState = state;
+            ChangeSprite();
             Debug.Log("CurrentState: " + CurrentState + " Sequence " + Sequence + " Sequence[Stack.Length] " + Sequence[Stack.Length]);
             if (Sequence[Stack.Length].Equals(state[0]))
             {
-                Debug.Log("fuck yeah!!!");
                 Stack += state;
                 if (Sequence.Equals(Stack))
                 {
-                    //GAME ENDS THIS PLAYER WINS
+                    GameObject.FindGameObjectWithTag("WinPanel").SetActive(true);
+
+                    //PhotonNetwork.LeaveRoom();
+                    //SceneManager.LoadScene(0);
                 }
             }
             else

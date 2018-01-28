@@ -12,6 +12,7 @@ TagManager:
   - ResourceT
   - ResourceG
   - ResourceC
+  - WinPanel
   layers:
   - Default
   - TransparentFX

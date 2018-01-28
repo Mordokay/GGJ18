@@ -212,6 +212,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentState: 0
+  StateG: {fileID: 21300000, guid: f26c7374a1c28e94f93fe9a44c35522b, type: 3}
+  StateT: {fileID: 21300000, guid: af07924d3b92acf48bdbe01b74608ed9, type: 3}
+  StateA: {fileID: 21300000, guid: a5d460239a6dcd3499dee7442343d7e4, type: 3}
+  StateC: {fileID: 21300000, guid: e42058b1b8253b046a9af7eb75810aaf, type: 3}
 --- !u!114 &114224239094436222
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -471,8 +475,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.9899992}
-  m_SizeDelta: {x: 152.344, y: 53.75}
+  m_AnchoredPosition: {x: 0.6520004, y: 0.9810003}
+  m_SizeDelta: {x: 200, y: 53.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224687050588532618
 RectTransform:
@@ -489,8 +493,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.99}
-  m_SizeDelta: {x: 152.344, y: 53.75}
+  m_AnchoredPosition: {x: 0.652, y: 0.981}
+  m_SizeDelta: {x: 200, y: 53.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224917600179034260
 RectTransform:
