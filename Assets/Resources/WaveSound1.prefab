@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114852769108740494}
   - component: {fileID: 114007551233058352}
   m_Layer: 0
-  m_Name: WaveSound
+  m_Name: WaveSound1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

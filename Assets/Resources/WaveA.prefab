@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114754004165049726}
   - component: {fileID: 58891187092795094}
   - component: {fileID: 50761516785118852}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WaveA
   m_TagString: WaveA
   m_Icon: {fileID: 0}

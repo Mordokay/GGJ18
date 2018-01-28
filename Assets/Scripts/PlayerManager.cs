@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -117,7 +118,7 @@ namespace Assets.Scripts
             if (hidding)
             {
                 hiddenTime += Time.deltaTime;
-                if (hiddenTime > 2.0f)
+                if (hiddenTime > 0.5f)
                 {
                     hidding = false;
                     hiddenTime = 0.0f;
@@ -158,13 +159,10 @@ namespace Assets.Scripts
                         hidding = true;
                         //scallingDown = true;
                         timeSinceLastAbilityUse = 0.0f;
-<<<<<<< HEAD
+                        this.GetComponent<CircleCollider2D>().enabled = false;
                         PhotonNetwork.Instantiate("WaveSound" , this.transform.position, Quaternion.identity, 0);
 
                         StartCoroutine(FadeTo(0.25f, 0.5f));
-=======
-                        PhotonNetwork.Instantiate("WaveSound", this.transform.position, Quaternion.identity, 0);
->>>>>>> efab265480e6ca6b6f67b7b3340ec678143b8408
                     }
                 }
             }
