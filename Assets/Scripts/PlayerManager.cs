@@ -113,11 +113,11 @@ namespace Assets.Scripts
                     PhotonNetwork.Instantiate("ResourceC", new Vector3(UnityEngine.Random.Range(-16.0f, 16.0f),
                         UnityEngine.Random.Range(-13.0f, 13.4f), 0.0f), Quaternion.identity, 0);
                 }
-                Debug.Log("I am the master!!! with " + result);
+                //Debug.Log("I am the master!!! with " + result);
             }
             else
             {
-                Debug.Log("I am NOT the master!!!");
+                //Debug.Log("I am NOT the master!!!");
             }
             if (hidding)
             {

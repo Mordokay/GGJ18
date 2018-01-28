@@ -66,7 +66,8 @@ namespace Assets.Scripts
                 Stack += state;
                 if (Sequence.Equals(Stack))
                 {
-                    GameObject.FindGameObjectWithTag("WinPanel").SetActive(true);
+                    Debug.Log("You Win!!!");
+                    GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(0).gameObject.SetActive(true);
 
                     //PhotonNetwork.LeaveRoom();
                     //SceneManager.LoadScene(0);
@@ -92,6 +93,8 @@ namespace Assets.Scripts
                 Sequence = (string)stream.ReceiveNext();
                 Stack = (string)stream.ReceiveNext();
                 CurrentState = (string)stream.ReceiveNext();
+
+                ChangeSprite();
                 //Debug.Log(((string)stream.ReceiveNext())[0]);
             }
         }
