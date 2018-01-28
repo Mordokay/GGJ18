@@ -9,6 +9,8 @@ namespace Assets.Scripts
 {
     class PlayerManager : MonoBehaviour
     {
+       // public List<Sprite> 
+
         private PlayerInfo _player_info;
 
         public Text _sequence_label;
@@ -124,7 +126,7 @@ namespace Assets.Scripts
                         hidding = true;
                         //scallingDown = true;
                         timeSinceLastAbilityUse = 0.0f;
-                        PhotonNetwork.Instantiate("WaveSound" , this.transform.position, Quaternion.identity, 0);
+                        PhotonNetwork.Instantiate("WaveSound", this.transform.position, Quaternion.identity, 0);
                     }
                 }
             }
