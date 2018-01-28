@@ -33,11 +33,9 @@ namespace Assets.Scripts
         */
         float timeSinceLastAbilityUse = 0.0f;
         public float abilityCooldown = 1.0f;
-        public bool gameEnded;
 
         void Start()
         {
-            gameEnded = false;
             _Nickname.text = PhotonNetwork.playerName;
             m_sprite = GetComponentInParent<SpriteRenderer>();
 
@@ -77,7 +75,7 @@ namespace Assets.Scripts
                         GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(1).gameObject.SetActive(true);
                         Debug.Log("You Lose!!!");
                     }
-                    gameEnded = true;
+                    Time.timeScale = 0.0f;
                 }
             }
         }
