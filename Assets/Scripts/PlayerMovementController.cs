@@ -20,7 +20,7 @@ public class PlayerMovementController : MonoBehaviour
 
     void Update()
     {
-        if(GetComponent<PlayerManager>().game_started)
+        if(GetComponent<PlayerManager>().game_started && !GetComponent<PlayerManager>().gameEnded)
         {
             if (m_photon_view.isMine)
                 CheckInput();
