@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace Assets.Scripts
         public Text _stack_label;
         public Text _state_label;
         PhotonView m_photon_view;
+        SpriteRenderer m_sprite;
 
         bool hidding = false;
         float hiddenTime = 0.0f;
@@ -27,6 +29,8 @@ namespace Assets.Scripts
 
         void Start()
         {
+            m_sprite = GetComponentInParent<SpriteRenderer>();
+
             //just for testing purposes
             _stack_label.text = "";
             _sequence_label.text = "";
@@ -43,6 +47,72 @@ namespace Assets.Scripts
 
         void Update()
         {
+            if (PhotonNetwork.isMasterClient)
+            {
+                bool hasA = false;
+                bool hasG = false;
+                bool hasC = false;
+                bool hasT = false;
+
+                foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+                {
+                    switch (player.GetComponent<PlayerInfo>().CurrentState)
+                    {
+                        case "A":
+                            hasA = true;
+                            break;
+                        case "C":
+                            hasC = true;
+                            break;
+                        case "G":
+                            hasG = true;
+                            break;
+                        case "T":
+                            hasT = true;
+                            break;
+                    }
+                }
+
+                if (GameObject.FindGameObjectWithTag("ResourceA") != null)
+                {
+                    hasA = true;
+                }
+                if (GameObject.FindGameObjectWithTag("ResourceT") != null)
+                {
+                    hasT = true;
+                }
+                if (GameObject.FindGameObjectWithTag("ResourceG") != null)
+                {
+                    hasG = true;
+                }
+                if (GameObject.FindGameObjectWithTag("ResourceC") != null)
+                {
+                    hasC = true;
+                }
+
+                string result = "";
+                if (hasA)
+                {
+                    result += "hasA ";
+                }
+                if (hasT)
+                {
+                    result += "hasT ";
+                }
+                if (hasG)
+                {
+                    result += "hasG ";
+                }
+                if (hasC)
+                {
+                    result += "hasC ";
+                }
+                Debug.Log("I am the master!!! with " + result);
+            }
+            else
+            {
+                Debug.Log("I am NOT the master!!!");
+            }
             if (hidding)
             {
                 hiddenTime += Time.deltaTime;
@@ -51,51 +121,14 @@ namespace Assets.Scripts
                     hidding = false;
                     hiddenTime = 0.0f;
                     this.GetComponent<CircleCollider2D>().enabled = true;
+
+                    StartCoroutine(FadeTo(1.0f, 0.5f));
                 }
             }
             else
             {
                 timeSinceLastAbilityUse += Time.deltaTime;
             }
-            /*
-            if (scallingDown)
-            {
-                if(hiddenTime < 0.25f)
-                {
-                    this.transform.localScale = Vector3.one * ((0.25f - hiddenTime) / 0.25f);
-                }
-                else
-                {
-                    scallingDown = false;
-                }
-            }
-            else if (scallingUp)
-            {
-                if (hiddenTime < 2.0f)
-                {
-                    this.transform.localScale = Vector3.one * ((hiddenTime - 1.75f) / 0.25f);
-                }
-                else
-                {
-                    scallingUp = false;
-                    hidding = false;
-                    this.transform.localScale = Vector3.one;
-                    hiddenTime = 0.0f;
-                    this.GetComponent<CircleCollider2D>().enabled = true;
-                }
-            }
-            else
-            {
-                this.GetComponent<CircleCollider2D>().enabled = false;
-                if (hiddenTime > 1.75f)
-                {
-                    scallingUp = true;
-                }
-                //He is hidden
-            }
-
-        }
-        */
 
             if (m_photon_view.isMine)
             {
@@ -125,12 +158,25 @@ namespace Assets.Scripts
                         //scallingDown = true;
                         timeSinceLastAbilityUse = 0.0f;
                         PhotonNetwork.Instantiate("WaveSound" , this.transform.position, Quaternion.identity, 0);
+
+                        StartCoroutine(FadeTo(0.25f, 0.5f));
                     }
                 }
             }
             _sequence_label.text = _player_info.Sequence;
             _stack_label.text = _player_info.Stack;
             _state_label.text = _player_info.CurrentState;
+        }
+
+        IEnumerator FadeTo(float aValue, float aTime)
+        {
+            float alpha = m_sprite.color.a;
+            for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+            {
+                Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, aValue, t));
+                m_sprite.color = newColor;
+                yield return null;
+            }
         }
     }
 }

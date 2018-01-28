@@ -8,6 +8,10 @@ TagManager:
   - WaveG
   - WaveC
   - WaveT
+  - ResourceA
+  - ResourceT
+  - ResourceG
+  - ResourceC
   layers:
   - Default
   - TransparentFX
