@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -92,21 +93,25 @@ namespace Assets.Scripts
                 }
 
                 string result = "";
-                if (hasA)
+                if (!hasA)
                 {
-                    result += "hasA ";
+                    PhotonNetwork.Instantiate("ResourceA", new Vector3(UnityEngine.Random.Range(-16.0f, 16.0f),
+                        UnityEngine.Random.Range(-13.0f, 13.4f), 0.0f), Quaternion.identity, 0);
                 }
-                if (hasT)
+                if (!hasT)
                 {
-                    result += "hasT ";
+                    PhotonNetwork.Instantiate("ResourceT", new Vector3(UnityEngine.Random.Range(-16.0f, 16.0f),
+                         UnityEngine.Random.Range(-13.0f, 13.4f), 0.0f), Quaternion.identity, 0);
                 }
-                if (hasG)
+                if (!hasG)
                 {
-                    result += "hasG ";
+                    PhotonNetwork.Instantiate("ResourceG", new Vector3(UnityEngine.Random.Range(-16.0f, 16.0f),
+                        UnityEngine.Random.Range(-13.0f, 13.4f), 0.0f), Quaternion.identity, 0);
                 }
-                if (hasC)
+                if (!hasC)
                 {
-                    result += "hasC ";
+                    PhotonNetwork.Instantiate("ResourceC", new Vector3(UnityEngine.Random.Range(-16.0f, 16.0f),
+                        UnityEngine.Random.Range(-13.0f, 13.4f), 0.0f), Quaternion.identity, 0);
                 }
                 Debug.Log("I am the master!!! with " + result);
             }
@@ -158,13 +163,10 @@ namespace Assets.Scripts
                         hidding = true;
                         //scallingDown = true;
                         timeSinceLastAbilityUse = 0.0f;
-<<<<<<< HEAD
+
                         PhotonNetwork.Instantiate("WaveSound" , this.transform.position, Quaternion.identity, 0);
 
                         StartCoroutine(FadeTo(0.25f, 0.5f));
-=======
-                        PhotonNetwork.Instantiate("WaveSound", this.transform.position, Quaternion.identity, 0);
->>>>>>> efab265480e6ca6b6f67b7b3340ec678143b8408
                     }
                 }
             }

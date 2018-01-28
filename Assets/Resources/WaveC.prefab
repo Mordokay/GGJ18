@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114960746613704798}
   - component: {fileID: 58724047893478150}
   - component: {fileID: 50041470413311316}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WaveC
   m_TagString: WaveC
   m_Icon: {fileID: 0}

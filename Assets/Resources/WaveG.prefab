@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114449101693298056}
   - component: {fileID: 58748137275557156}
   - component: {fileID: 50800419602946814}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WaveG
   m_TagString: WaveG
   m_Icon: {fileID: 0}

@@ -83,5 +83,8 @@ public class PlayerMovementController : MonoBehaviour
         {
             this.GetComponent<Rigidbody2D>().velocity /= 1.05f;
         }
+
+        this.transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -17.0f, 17.0f),
+            Mathf.Clamp(this.transform.position.y, -13.0f, 13.4f), this.transform.position.z);
     }
 }
