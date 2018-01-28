@@ -1,9 +1,22 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 1c91bdc95774e3d4bb19337398de110a
 timeCreated: 1517120367
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
+=======
+guid: 22b5b0c6cb4d3aa4d9633e26033b4105
+timeCreated: 1517119041
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Astate_0
+    21300002: Astate_1
+    21300004: Astate_2
+    21300006: Astate_3
+    21300008: Astate_4
+>>>>>>> ef44b5aa03afe7e92935786cdafd372a566aa3b3
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -40,7 +53,11 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
+<<<<<<< HEAD
   spriteMode: 1
+=======
+  spriteMode: 2
+>>>>>>> ef44b5aa03afe7e92935786cdafd372a566aa3b3
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -66,9 +83,105 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+<<<<<<< HEAD
   spriteSheet:
     serializedVersion: 2
     sprites: []
+=======
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Astate_0
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 220
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Astate_1
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 344
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Astate_2
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 154
+        width: 54
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Astate_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 196
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Astate_4
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 6
+        width: 104
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+>>>>>>> ef44b5aa03afe7e92935786cdafd372a566aa3b3
     outline: []
     physicsShape: []
   spritePackingTag: 

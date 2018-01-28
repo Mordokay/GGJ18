@@ -122,7 +122,7 @@ namespace Assets.Scripts
             if (hidding)
             {
                 hiddenTime += Time.deltaTime;
-                if (hiddenTime > 2.0f)
+                if (hiddenTime > 0.5f)
                 {
                     hidding = false;
                     hiddenTime = 0.0f;
@@ -163,7 +163,11 @@ namespace Assets.Scripts
                         hidding = true;
                         //scallingDown = true;
                         timeSinceLastAbilityUse = 0.0f;
+<<<<<<< HEAD
 
+=======
+                        this.GetComponent<CircleCollider2D>().enabled = false;
+>>>>>>> ef44b5aa03afe7e92935786cdafd372a566aa3b3
                         PhotonNetwork.Instantiate("WaveSound" , this.transform.position, Quaternion.identity, 0);
 
                         StartCoroutine(FadeTo(0.25f, 0.5f));
