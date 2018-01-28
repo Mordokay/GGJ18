@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212078922936218034}
   - component: {fileID: 58948922708003804}
   - component: {fileID: 114462872227628726}
+  - component: {fileID: 114854060359457712}
   m_Layer: 0
   m_Name: ResourceA
   m_TagString: ResourceA
@@ -83,6 +84,17 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114854060359457712
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1197290666306090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9637142d3e326684fbd0dee25fee84d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212078922936218034
 SpriteRenderer:
   m_ObjectHideFlags: 1
