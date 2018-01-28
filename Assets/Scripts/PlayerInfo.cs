@@ -21,9 +21,11 @@ namespace Assets.Scripts
         public Sprite StateC;
 
         private System.Random _random_generator;
+        GameObject playerCanvas;
 
         public void SetUp()
         {
+            playerCanvas = this.transform.GetChild(0).gameObject;
             Sequence = "";
             Stack = "";
             CurrentState = "";
@@ -35,6 +37,243 @@ namespace Assets.Scripts
 
             CurrentState = PlayerConsts.SEQUENCE_STATES[UnityEngine.Random.Range(0, PlayerConsts.SEQUENCE_STATES.Length)];
             ChangeSprite();
+
+            SetupSequence();
+        }
+
+        void CleanSequenceLetters()
+        {
+            playerCanvas.transform.GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(0).GetChild(0).GetChild(1).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(0).GetChild(0).GetChild(2).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(0).GetChild(0).GetChild(3).gameObject.SetActive(false);
+
+            playerCanvas.transform.GetChild(1).GetChild(0).GetChild(0).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(1).GetChild(0).GetChild(1).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(1).GetChild(0).GetChild(2).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(1).GetChild(0).GetChild(3).gameObject.SetActive(false);
+
+            playerCanvas.transform.GetChild(2).GetChild(0).GetChild(0).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(2).GetChild(0).GetChild(1).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(2).GetChild(0).GetChild(2).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(2).GetChild(0).GetChild(3).gameObject.SetActive(false);
+
+            playerCanvas.transform.GetChild(3).GetChild(0).GetChild(0).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(3).GetChild(0).GetChild(1).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(3).GetChild(0).GetChild(2).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(3).GetChild(0).GetChild(3).gameObject.SetActive(false);
+
+            playerCanvas.transform.GetChild(4).GetChild(0).GetChild(0).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(4).GetChild(0).GetChild(1).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(4).GetChild(0).GetChild(2).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(4).GetChild(0).GetChild(3).gameObject.SetActive(false);
+        }
+
+        void CleanStackLetters()
+        {
+            playerCanvas.transform.GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(0).GetChild(1).GetChild(2).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(0).GetChild(1).GetChild(3).gameObject.SetActive(false);
+
+            playerCanvas.transform.GetChild(1).GetChild(1).GetChild(0).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(1).GetChild(1).GetChild(1).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(1).GetChild(1).GetChild(2).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(1).GetChild(1).GetChild(3).gameObject.SetActive(false);
+
+            playerCanvas.transform.GetChild(2).GetChild(1).GetChild(0).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(2).GetChild(1).GetChild(1).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(2).GetChild(1).GetChild(2).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(2).GetChild(1).GetChild(3).gameObject.SetActive(false);
+
+            playerCanvas.transform.GetChild(3).GetChild(1).GetChild(0).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(3).GetChild(1).GetChild(1).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(3).GetChild(1).GetChild(2).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(3).GetChild(1).GetChild(3).gameObject.SetActive(false);
+
+            playerCanvas.transform.GetChild(4).GetChild(1).GetChild(0).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(4).GetChild(1).GetChild(1).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(4).GetChild(1).GetChild(2).gameObject.SetActive(false);
+            playerCanvas.transform.GetChild(4).GetChild(1).GetChild(3).gameObject.SetActive(false);
+        }
+        void SetupSequence()
+        {
+            CleanSequenceLetters();
+            //letter , unselected, specific image
+            switch (Sequence[0])
+            {
+                case 'A':
+                    playerCanvas.transform.GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(true);
+                    break;
+                case 'T':
+                    playerCanvas.transform.GetChild(0).GetChild(0).GetChild(1).gameObject.SetActive(true);
+                    break;
+                case 'G':
+                    playerCanvas.transform.GetChild(0).GetChild(0).GetChild(2).gameObject.SetActive(true);
+                    break;
+                case 'C':
+                    playerCanvas.transform.GetChild(0).GetChild(0).GetChild(3).gameObject.SetActive(true);
+                    break;
+            }
+            switch (Sequence[1])
+            {
+                case 'A':
+                    playerCanvas.transform.GetChild(1).GetChild(0).GetChild(0).gameObject.SetActive(true);
+                    break;
+                case 'T':
+                    playerCanvas.transform.GetChild(1).GetChild(0).GetChild(1).gameObject.SetActive(true);
+                    break;
+                case 'G':
+                    playerCanvas.transform.GetChild(1).GetChild(0).GetChild(2).gameObject.SetActive(true);
+                    break;
+                case 'C':
+                    playerCanvas.transform.GetChild(1).GetChild(0).GetChild(3).gameObject.SetActive(true);
+                    break;
+            }
+            switch (Sequence[2])
+            {
+                case 'A':
+                    playerCanvas.transform.GetChild(2).GetChild(0).GetChild(0).gameObject.SetActive(true);
+                    break;
+                case 'T':
+                    playerCanvas.transform.GetChild(2).GetChild(0).GetChild(1).gameObject.SetActive(true);
+                    break;
+                case 'G':
+                    playerCanvas.transform.GetChild(2).GetChild(0).GetChild(2).gameObject.SetActive(true);
+                    break;
+                case 'C':
+                    playerCanvas.transform.GetChild(2).GetChild(0).GetChild(3).gameObject.SetActive(true);
+                    break;
+            }
+            switch (Sequence[3])
+            {
+                case 'A':
+                    playerCanvas.transform.GetChild(3).GetChild(0).GetChild(0).gameObject.SetActive(true);
+                    break;
+                case 'T':
+                    playerCanvas.transform.GetChild(3).GetChild(0).GetChild(1).gameObject.SetActive(true);
+                    break;
+                case 'G':
+                    playerCanvas.transform.GetChild(3).GetChild(0).GetChild(2).gameObject.SetActive(true);
+                    break;
+                case 'C':
+                    playerCanvas.transform.GetChild(3).GetChild(0).GetChild(3).gameObject.SetActive(true);
+                    break;
+            }
+            switch (Sequence[4])
+            {
+                case 'A':
+                    playerCanvas.transform.GetChild(4).GetChild(0).GetChild(0).gameObject.SetActive(true);
+                    break;
+                case 'T':
+                    playerCanvas.transform.GetChild(4).GetChild(0).GetChild(1).gameObject.SetActive(true);
+                    break;
+                case 'G':
+                    playerCanvas.transform.GetChild(4).GetChild(0).GetChild(2).gameObject.SetActive(true);
+                    break;
+                case 'C':
+                    playerCanvas.transform.GetChild(4).GetChild(0).GetChild(3).gameObject.SetActive(true);
+                    break;
+            }
+        }
+
+        void UpdateStack()
+        {
+            CleanStackLetters();
+
+            if(Stack.Length > 0)
+            {
+                Debug.Log("change frst letter: " + Stack);
+                //letter , unselected/selected , specific image
+                switch (Stack[0])
+                {
+                   
+                    case 'A':
+                        playerCanvas.transform.GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(true);
+                        break;
+                    case 'T':
+                        playerCanvas.transform.GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(true);
+                        break;
+                    case 'G':
+                        playerCanvas.transform.GetChild(0).GetChild(1).GetChild(2).gameObject.SetActive(true);
+                        break;
+                    case 'C':
+                        playerCanvas.transform.GetChild(0).GetChild(1).GetChild(3).gameObject.SetActive(true);
+                        break;
+                }
+            }
+            if (Stack.Length > 1)
+            {
+                switch (Stack[1])
+                {
+                    case 'A':
+                        playerCanvas.transform.GetChild(1).GetChild(1).GetChild(0).gameObject.SetActive(true);
+                        break;
+                    case 'T':
+                        playerCanvas.transform.GetChild(1).GetChild(1).GetChild(1).gameObject.SetActive(true);
+                        break;
+                    case 'G':
+                        playerCanvas.transform.GetChild(1).GetChild(1).GetChild(2).gameObject.SetActive(true);
+                        break;
+                    case 'C':
+                        playerCanvas.transform.GetChild(1).GetChild(1).GetChild(3).gameObject.SetActive(true);
+                        break;
+                }
+            }
+            if (Stack.Length > 2)
+            {
+                switch (Stack[1])
+                {
+                    case 'A':
+                        playerCanvas.transform.GetChild(2).GetChild(1).GetChild(0).gameObject.SetActive(true);
+                        break;
+                    case 'T':
+                        playerCanvas.transform.GetChild(2).GetChild(1).GetChild(1).gameObject.SetActive(true);
+                        break;
+                    case 'G':
+                        playerCanvas.transform.GetChild(2).GetChild(1).GetChild(2).gameObject.SetActive(true);
+                        break;
+                    case 'C':
+                        playerCanvas.transform.GetChild(2).GetChild(1).GetChild(3).gameObject.SetActive(true);
+                        break;
+                }
+            }
+            if (Stack.Length > 3)
+            {
+                switch (Stack[1])
+                {
+                    case 'A':
+                        playerCanvas.transform.GetChild(3).GetChild(1).GetChild(0).gameObject.SetActive(true);
+                        break;
+                    case 'T':
+                        playerCanvas.transform.GetChild(3).GetChild(1).GetChild(1).gameObject.SetActive(true);
+                        break;
+                    case 'G':
+                        playerCanvas.transform.GetChild(3).GetChild(1).GetChild(2).gameObject.SetActive(true);
+                        break;
+                    case 'C':
+                        playerCanvas.transform.GetChild(3).GetChild(1).GetChild(3).gameObject.SetActive(true);
+                        break;
+                }
+            }
+            if (Stack.Length > 4)
+            {
+                switch (Stack[1])
+                {
+                    case 'A':
+                        playerCanvas.transform.GetChild(4).GetChild(1).GetChild(0).gameObject.SetActive(true);
+                        break;
+                    case 'T':
+                        playerCanvas.transform.GetChild(4).GetChild(1).GetChild(1).gameObject.SetActive(true);
+                        break;
+                    case 'G':
+                        playerCanvas.transform.GetChild(4).GetChild(1).GetChild(2).gameObject.SetActive(true);
+                        break;
+                    case 'C':
+                        playerCanvas.transform.GetChild(4).GetChild(1).GetChild(3).gameObject.SetActive(true);
+                        break;
+                }
+            }
         }
 
         void ChangeSprite()
@@ -72,10 +311,13 @@ namespace Assets.Scripts
                     //PhotonNetwork.LeaveRoom();
                     //SceneManager.LoadScene(0);
                 }
+
+                UpdateStack();
             }
             else
             {
                 Stack = "";
+                CleanStackLetters();
             }
         }
 
@@ -95,6 +337,7 @@ namespace Assets.Scripts
                 CurrentState = (string)stream.ReceiveNext();
 
                 ChangeSprite();
+                UpdateStack();
                 //Debug.Log(((string)stream.ReceiveNext())[0]);
             }
         }
