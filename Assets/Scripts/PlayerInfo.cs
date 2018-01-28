@@ -27,6 +27,7 @@ namespace Assets.Scripts
 
         public void SetUp()
         {
+            if (GetComponent<PhotonView>().isMine)
                 _player_name = PhotonNetwork.playerName;
 
             playerCanvas = this.transform.GetChild(0).gameObject;
@@ -336,6 +337,7 @@ namespace Assets.Scripts
                 stream.SendNext(Sequence);
                 stream.SendNext(Stack);
                 stream.SendNext(CurrentState);
+                stream.SendNext(_player_name);
                 //Debug.Log("Writing!!!");
             }
             else
@@ -343,6 +345,7 @@ namespace Assets.Scripts
                 Sequence = (string)stream.ReceiveNext();
                 Stack = (string)stream.ReceiveNext();
                 CurrentState = (string)stream.ReceiveNext();
+                _player_name = (string)stream.ReceiveNext();
 
                 ChangeSprite();
 

@@ -37,11 +37,7 @@ namespace Assets.Scripts
 
         void Start()
         {
-<<<<<<< HEAD
             m_photon_view = GetComponent<PhotonView>();
-=======
-            _Nickname.text = PhotonNetwork.playerName;
->>>>>>> e87ec2421440099a8938af1e9bd3afe0d06d9330
             m_sprite = GetComponentInParent<SpriteRenderer>();
 
             _player_info = GetComponent<PlayerInfo>();
