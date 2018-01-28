@@ -39,21 +39,22 @@ namespace Assets.Scripts
 
         void ChangeSprite()
         {
-            switch (CurrentState)
-            {
-                case "A":
-                    this.GetComponent<SpriteRenderer>().color = new Color(165.0f, 0.0f, 0.0f);
-                    break;
-                case "T":
-                    this.GetComponent<SpriteRenderer>().color = new Color(0.0f, 155.0f, 0.0f);
-                    break;
-                case "G":
-                    this.GetComponent<SpriteRenderer>().color = new Color(140.0f, 0.0f, 150.0f);
-                    break;
-                case "C":
-                    this.GetComponent<SpriteRenderer>().color = new Color(0.0f, 145.0f, 250.0f); ;
-                    break;
-            }
+
+            //switch (CurrentState)
+            //{
+            //    case "A":
+            //        this.GetComponent<SpriteRenderer>().color = new Color(165.0f, 0.0f, 0.0f);
+            //        break;
+            //    case "T":
+            //        this.GetComponent<SpriteRenderer>().color = new Color(0.0f, 155.0f, 0.0f);
+            //        break;
+            //    case "G":
+            //        this.GetComponent<SpriteRenderer>().color = new Color(140.0f, 0.0f, 150.0f);
+            //        break;
+            //    case "C":
+            //        this.GetComponent<SpriteRenderer>().color = new Color(0.0f, 145.0f, 250.0f); ;
+            //        break;
+            //}
         }
 
         public void ReceiveState(string state)

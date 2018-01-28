@@ -48,7 +48,7 @@ namespace Assets.Scripts
 
             m_photon_view = GetComponent<PhotonView>();
 
-            if (PhotonNetwork.playerList.Count() != PlayerConsts.PLAYER_NUMBER)
+            if (PhotonNetwork.playerList.Count() >= PlayerConsts.PLAYER_NUMBER)
             {
                 GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(0).gameObject.SetActive(true);
                 GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(0).GetComponentInChildren<Text>().text = "Waiting for 3 Players...";
@@ -57,7 +57,7 @@ namespace Assets.Scripts
 
         void Update()
         {
-            if (PhotonNetwork.playerList.Count() == PlayerConsts.PLAYER_NUMBER)
+            if (PhotonNetwork.playerList.Count() >= PlayerConsts.PLAYER_NUMBER)
             {
                 game_started = true;
                 GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(0).gameObject.SetActive(false);
@@ -182,7 +182,7 @@ namespace Assets.Scripts
 
                             this.GetComponent<CircleCollider2D>().enabled = false;
 
-                            PhotonNetwork.Instantiate("WaveSound", this.transform.position, Quaternion.identity, 0);
+                            PhotonNetwork.Instantiate("WaveSound1", this.transform.position, Quaternion.identity, 0);
 
                             StartCoroutine(FadeTo(0.25f, 0.5f));
                         }
