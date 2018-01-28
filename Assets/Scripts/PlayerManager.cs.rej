@@ -1,0 +1,7 @@
+diff a/Assets/Scripts/PlayerManager.cs b/Assets/Scripts/PlayerManager.cs	(rejected hunks)
+@@ -1,4 +1,5 @@
+ ﻿using System;
++using System.Collections;
+ using System.Collections.Generic;
+ using System.Linq;
+ using System.Text;

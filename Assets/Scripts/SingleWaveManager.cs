@@ -43,7 +43,7 @@ public class SingleWaveManager : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.gameObject.GetComponent<PhotonView>().isMine && coll.gameObject.tag == "Player")
+        if (coll.gameObject.GetComponent<PhotonView>().isMine && !GetComponent<PhotonView>().isMine && coll.gameObject.tag == "Player")
         {
             switch (this.gameObject.tag)
             {
