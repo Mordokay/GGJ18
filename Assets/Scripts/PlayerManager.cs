@@ -18,6 +18,8 @@ namespace Assets.Scripts
         public Text _sequence_label;
         public Text _stack_label;
         public Text _state_label;
+        public Text _Nickname;
+
         PhotonView m_photon_view;
         SpriteRenderer m_sprite;
 
@@ -34,6 +36,7 @@ namespace Assets.Scripts
 
         void Start()
         {
+            _Nickname.text = PhotonNetwork.playerName;
             m_sprite = GetComponentInParent<SpriteRenderer>();
 
             _stack_label.text = "";
