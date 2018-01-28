@@ -348,6 +348,7 @@ public class PhotonLobby : MonoBehaviour
     {
         Debug.Log("OnCreatedRoom");
         PhotonNetwork.LoadLevel(SceneNameGame);
+        Time.timeScale = 1.0f;
     }
 
     public void OnDisconnectedFromPhoton()
