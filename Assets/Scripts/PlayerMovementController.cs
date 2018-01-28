@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,10 +20,14 @@ public class PlayerMovementController : MonoBehaviour
 
     void Update()
     {
-        if (m_photon_view.isMine)
-            CheckInput();
-        else
-            SmoothMove();
+        if(GetComponent<PlayerManager>().game_started)
+        {
+            if (m_photon_view.isMine)
+                CheckInput();
+            else
+                SmoothMove();
+        }
+        
     }
 
     private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

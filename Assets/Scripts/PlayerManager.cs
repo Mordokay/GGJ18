@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Assets.Scripts.Constants;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +19,8 @@ namespace Assets.Scripts
         public Text _state_label;
         PhotonView m_photon_view;
         SpriteRenderer m_sprite;
+
+        public bool game_started = false;
 
         bool hidding = false;
         float hiddenTime = 0.0f;
@@ -45,133 +47,149 @@ namespace Assets.Scripts
             _stack_label.gameObject.transform.position = stack_label_position;
 
             m_photon_view = GetComponent<PhotonView>();
+
+            if (PhotonNetwork.playerList.Count() != PlayerConsts.PLAYER_NUMBER)
+            {
+                GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(0).gameObject.SetActive(true);
+                GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(0).GetComponentInChildren<Text>().text = "Waiting for 3 Players...";
+            }
         }
 
         void Update()
         {
-            if (PhotonNetwork.isMasterClient)
+            if (PhotonNetwork.playerList.Count() == PlayerConsts.PLAYER_NUMBER)
             {
-                bool hasA = false;
-                bool hasG = false;
-                bool hasC = false;
-                bool hasT = false;
+                game_started = true;
+                GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(0).gameObject.SetActive(false);
+            }
 
-                foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+            if (game_started)
+            {
+                if (PhotonNetwork.isMasterClient)
                 {
-                    switch (player.GetComponent<PlayerInfo>().CurrentState)
+                    bool hasA = false;
+                    bool hasG = false;
+                    bool hasC = false;
+                    bool hasT = false;
+
+                    foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
                     {
-                        case "A":
-                            hasA = true;
-                            break;
-                        case "C":
-                            hasC = true;
-                            break;
-                        case "G":
-                            hasG = true;
-                            break;
-                        case "T":
-                            hasT = true;
-                            break;
-                    }
-                }
-
-                if (GameObject.FindGameObjectWithTag("ResourceA") != null)
-                {
-                    hasA = true;
-                }
-                if (GameObject.FindGameObjectWithTag("ResourceT") != null)
-                {
-                    hasT = true;
-                }
-                if (GameObject.FindGameObjectWithTag("ResourceG") != null)
-                {
-                    hasG = true;
-                }
-                if (GameObject.FindGameObjectWithTag("ResourceC") != null)
-                {
-                    hasC = true;
-                }
-
-                string result = "";
-                if (!hasA)
-                {
-                    PhotonNetwork.Instantiate("ResourceA", new Vector3(UnityEngine.Random.Range(-16.0f, 16.0f),
-                        UnityEngine.Random.Range(-13.0f, 13.4f), 0.0f), Quaternion.identity, 0);
-                }
-                if (!hasT)
-                {
-                    PhotonNetwork.Instantiate("ResourceT", new Vector3(UnityEngine.Random.Range(-16.0f, 16.0f),
-                         UnityEngine.Random.Range(-13.0f, 13.4f), 0.0f), Quaternion.identity, 0);
-                }
-                if (!hasG)
-                {
-                    PhotonNetwork.Instantiate("ResourceG", new Vector3(UnityEngine.Random.Range(-16.0f, 16.0f),
-                        UnityEngine.Random.Range(-13.0f, 13.4f), 0.0f), Quaternion.identity, 0);
-                }
-                if (!hasC)
-                {
-                    PhotonNetwork.Instantiate("ResourceC", new Vector3(UnityEngine.Random.Range(-16.0f, 16.0f),
-                        UnityEngine.Random.Range(-13.0f, 13.4f), 0.0f), Quaternion.identity, 0);
-                }
-                //Debug.Log("I am the master!!! with " + result);
-            }
-            else
-            {
-                //Debug.Log("I am NOT the master!!!");
-            }
-            if (hidding)
-            {
-                hiddenTime += Time.deltaTime;
-                if (hiddenTime > 0.5f)
-                {
-                    hidding = false;
-                    hiddenTime = 0.0f;
-                    this.GetComponent<CircleCollider2D>().enabled = true;
-
-                    StartCoroutine(FadeTo(1.0f, 0.5f));
-                }
-            }
-            else
-            {
-                timeSinceLastAbilityUse += Time.deltaTime;
-            }
-
-            if (m_photon_view.isMine)
-            {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    if (!hidding && timeSinceLastAbilityUse > abilityCooldown)
-                    {
-                        switch (_player_info.CurrentState)
+                        switch (player.GetComponent<PlayerInfo>().CurrentState)
                         {
                             case "A":
-                                PhotonNetwork.Instantiate("WaveA", this.transform.position, Quaternion.identity, 0);
+                                hasA = true;
                                 break;
                             case "C":
-                                PhotonNetwork.Instantiate("WaveC", this.transform.position, Quaternion.identity, 0);
+                                hasC = true;
                                 break;
                             case "G":
-                                PhotonNetwork.Instantiate("WaveG", this.transform.position, Quaternion.identity, 0);
+                                hasG = true;
                                 break;
                             case "T":
-                                PhotonNetwork.Instantiate("WaveT", this.transform.position, Quaternion.identity, 0);
+                                hasT = true;
                                 break;
                         }
-                        //GameObject wave = PhotonNetwork.Instantiate("Wave", this.transform.position, Quaternion.identity, 0);
-                        //wave.GetComponent<SingleWaveManager>().State = _player_info.CurrentState;
+                    }
 
-                        hidding = true;
-                        //scallingDown = true;
-                        timeSinceLastAbilityUse = 0.0f;
+                    if (GameObject.FindGameObjectWithTag("ResourceA") != null)
+                    {
+                        hasA = true;
+                    }
+                    if (GameObject.FindGameObjectWithTag("ResourceT") != null)
+                    {
+                        hasT = true;
+                    }
+                    if (GameObject.FindGameObjectWithTag("ResourceG") != null)
+                    {
+                        hasG = true;
+                    }
+                    if (GameObject.FindGameObjectWithTag("ResourceC") != null)
+                    {
+                        hasC = true;
+                    }
 
-                        this.GetComponent<CircleCollider2D>().enabled = false;
+                    string result = "";
+                    if (!hasA)
+                    {
+                        PhotonNetwork.Instantiate("ResourceA", new Vector3(UnityEngine.Random.Range(-16.0f, 16.0f),
+                            UnityEngine.Random.Range(-13.0f, 13.4f), 0.0f), Quaternion.identity, 0);
+                    }
+                    if (!hasT)
+                    {
+                        PhotonNetwork.Instantiate("ResourceT", new Vector3(UnityEngine.Random.Range(-16.0f, 16.0f),
+                             UnityEngine.Random.Range(-13.0f, 13.4f), 0.0f), Quaternion.identity, 0);
+                    }
+                    if (!hasG)
+                    {
+                        PhotonNetwork.Instantiate("ResourceG", new Vector3(UnityEngine.Random.Range(-16.0f, 16.0f),
+                            UnityEngine.Random.Range(-13.0f, 13.4f), 0.0f), Quaternion.identity, 0);
+                    }
+                    if (!hasC)
+                    {
+                        PhotonNetwork.Instantiate("ResourceC", new Vector3(UnityEngine.Random.Range(-16.0f, 16.0f),
+                            UnityEngine.Random.Range(-13.0f, 13.4f), 0.0f), Quaternion.identity, 0);
+                    }
+                    //Debug.Log("I am the master!!! with " + result);
+                }
+                else
+                {
+                    //Debug.Log("I am NOT the master!!!");
+                }
+                if (hidding)
+                {
+                    hiddenTime += Time.deltaTime;
+                    if (hiddenTime > 0.5f)
+                    {
+                        hidding = false;
+                        hiddenTime = 0.0f;
+                        this.GetComponent<CircleCollider2D>().enabled = true;
 
-                        PhotonNetwork.Instantiate("WaveSound" , this.transform.position, Quaternion.identity, 0);
+                        StartCoroutine(FadeTo(1.0f, 0.5f));
+                    }
+                }
+                else
+                {
+                    timeSinceLastAbilityUse += Time.deltaTime;
+                }
 
-                        StartCoroutine(FadeTo(0.25f, 0.5f));
+                if (m_photon_view.isMine)
+                {
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        if (!hidding && timeSinceLastAbilityUse > abilityCooldown)
+                        {
+                            switch (_player_info.CurrentState)
+                            {
+                                case "A":
+                                    PhotonNetwork.Instantiate("WaveA", this.transform.position, Quaternion.identity, 0);
+                                    break;
+                                case "C":
+                                    PhotonNetwork.Instantiate("WaveC", this.transform.position, Quaternion.identity, 0);
+                                    break;
+                                case "G":
+                                    PhotonNetwork.Instantiate("WaveG", this.transform.position, Quaternion.identity, 0);
+                                    break;
+                                case "T":
+                                    PhotonNetwork.Instantiate("WaveT", this.transform.position, Quaternion.identity, 0);
+                                    break;
+                            }
+                            //GameObject wave = PhotonNetwork.Instantiate("Wave", this.transform.position, Quaternion.identity, 0);
+                            //wave.GetComponent<SingleWaveManager>().State = _player_info.CurrentState;
+
+                            hidding = true;
+                            //scallingDown = true;
+                            timeSinceLastAbilityUse = 0.0f;
+
+                            this.GetComponent<CircleCollider2D>().enabled = false;
+
+                            PhotonNetwork.Instantiate("WaveSound", this.transform.position, Quaternion.identity, 0);
+
+                            StartCoroutine(FadeTo(0.25f, 0.5f));
+                        }
                     }
                 }
             }
+            
             _sequence_label.text = _player_info.Sequence;
             _stack_label.text = _player_info.Stack;
             _state_label.text = _player_info.CurrentState;
