@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using Assets.Scripts;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SingleWaveManager : MonoBehaviour {
 
+    public char State { get; set; }
     float timeSinceCreation;
     float waveTimeOfLife = 1.5f;
 
@@ -16,7 +18,10 @@ public class SingleWaveManager : MonoBehaviour {
 
         if (timeSinceCreation > waveTimeOfLife)
         {
-            PhotonNetwork.Destroy(this.gameObject);
+            PhotonView view = GetComponent<PhotonView>();
+            if (view.isMine)
+                PhotonNetwork.Destroy(this.gameObject);
+
             return;
         }
 
@@ -36,10 +41,14 @@ public class SingleWaveManager : MonoBehaviour {
         }
     }
 
-    void OnCollisionEnter2D(Collision2D coll)
+    void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.gameObject.tag == "Enemy")
-            coll.gameObject.SendMessage("ApplyDamage", 10);
+        if (coll.gameObject.tag == "Player")
+        {
+            coll.gameObject.GetComponent<PlayerInfo>().ReceiveState(State);
+            Debug.Log("Player " + coll.gameObject.name + "Hit.");
+        }
+            
 
     }
 }

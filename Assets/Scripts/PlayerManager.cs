@@ -107,7 +107,8 @@ namespace Assets.Scripts
                 {
                     if (!hidding && timeSinceLastAbilityUse > abilityCooldown)
                     {
-                        PhotonNetwork.Instantiate("Wave", this.transform.position, Quaternion.identity, 0, null);
+                        GameObject wave = PhotonNetwork.Instantiate("Wave", this.transform.position, Quaternion.identity, 0, null);
+                        wave.GetComponent<SingleWaveManager>().State = _player_info.CurrentState;
 
                         hidding = true;
                         //scallingDown = true;
