@@ -36,6 +36,7 @@ namespace Assets.Scripts
             //just for testing purposes
             _stack_label.text = "";
             _sequence_label.text = "";
+            _state_label.text = "";
 
             _player_info = GetComponent<PlayerInfo>();
             _player_info.SetUp();
@@ -172,9 +173,9 @@ namespace Assets.Scripts
                     }
                 }
             }
-            _sequence_label.text = _player_info.Sequence;
-            _stack_label.text = _player_info.Stack;
-            _state_label.text = _player_info.CurrentState;
+            //_sequence_label.text = _player_info.Sequence;
+            //_stack_label.text = _player_info.Stack;
+            //_state_label.text = _player_info.CurrentState;
         }
 
         IEnumerator FadeTo(float aValue, float aTime)
