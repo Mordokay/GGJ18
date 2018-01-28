@@ -9,9 +9,10 @@ namespace Assets.Scripts
 {
     class PlayerManager : MonoBehaviour
     {
-        private PlayerInfo info;
+        private PlayerInfo _player_info;
 
         public Text _sequence_label;
+        public Text _stack_label;
         public Text _state_label;
         PhotonView m_photon_view;
 
@@ -30,11 +31,15 @@ namespace Assets.Scripts
         {
             //just for testing purposes
             counter = 0;
+            _stack_label.text = "";
+            _sequence_label.text = "";
 
-            info = GetComponent<PlayerInfo>();
-            info.SetUp();
-            Vector3 label_position = new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z);
-            _sequence_label.gameObject.transform.position = label_position;
+            _player_info = GetComponent<PlayerInfo>();
+            _player_info.SetUp();
+            Vector3 sequence_label_position = new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z);
+            Vector3 stack_label_position = new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z);
+            _sequence_label.gameObject.transform.position = sequence_label_position;
+            _stack_label.gameObject.transform.position = stack_label_position;
 
             m_photon_view = GetComponent<PhotonView>();
         }
@@ -107,7 +112,7 @@ namespace Assets.Scripts
                     {
                         counter += 1;
                         _state_label.text = counter.ToString();
-                        Instantiate(Resources.Load("WaveController"), this.transform.transform);
+                        PhotonNetwork.Instantiate("Wave", this.transform.position, Quaternion.identity, 0, null);
 
                         hidding = true;
                         //scallingDown = true;
@@ -131,8 +136,9 @@ namespace Assets.Scripts
                     _sequence_label.text = "444444";
                 }
             }
-            //_sequence_label.text = new string(info.GetSequence().ToArray<char>());
-            //_state_label.text = info.GetState().ToString();
+            _sequence_label.text = new string(_player_info.Sequence.ToArray<char>());
+            _stack_label.text = new string(_player_info.Stack.ToArray<char>());
+            _state_label.text = _player_info.CurrentState.ToString();
         }
 
         private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -142,12 +148,20 @@ namespace Assets.Scripts
                 stream.SendNext(_sequence_label.text);
                 stream.SendNext(counter);
                 //stream.SendNext(transform.rotation);
+                stream.SendNext(new string(_player_info.Sequence.ToArray<char>()));
+                stream.SendNext(new string(_player_info.Stack.ToArray<char>()));
+                stream.SendNext(_player_info.CurrentState.ToString());
             }
             else
             {
                 _sequence_label.text = (string)stream.ReceiveNext();
                 counter = (int)stream.ReceiveNext();
                 _state_label.text = counter.ToString();
+
+                _player_info.Sequence = new List<char>(stream.ReceiveNext().ToString());
+                _player_info.Stack = new List<char>(stream.ReceiveNext().ToString());
+                _player_info.CurrentState = stream.ReceiveNext().ToString().ToCharArray()[0];
+
                 //TargetRotation = (Quaternion)stream.ReceiveNext();
             }
         }

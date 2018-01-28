@@ -33,4 +33,6 @@ public class SingleWaveManager : MonoBehaviour {
                 this.GetComponent<SpriteRenderer>().color.b, 1 - timeSinceCreation / waveTimeOfLife);
         }
     }
+
+
 }

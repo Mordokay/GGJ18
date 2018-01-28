@@ -1,9 +1,0 @@
-diff a/Assets/Photon Unity Networking/UtilityScripts/OnJoinedInstantiate.cs b/Assets/Photon Unity Networking/UtilityScripts/OnJoinedInstantiate.cs	(rejected hunks)
-@@ -20,7 +20,6 @@
-                     spawnPos = this.SpawnPositions[Random.Range(0, SpawnPositions.Length)].position;
-                 }
- 
--                PhotonNetwork.Instantiate(name, spawnPos, Quaternion.identity, 0);
-                 GameObject myPlayer = PhotonNetwork.Instantiate(o.name, spawnPos, Quaternion.identity, 0);
-                 Camera.main.GetComponent<CameraFollowPlayer>().player = myPlayer;
-             }

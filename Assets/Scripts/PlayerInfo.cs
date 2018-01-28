@@ -7,64 +7,54 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    class PlayerInfo : MonoBehaviour
+    public class PlayerInfo : MonoBehaviour
     {
-        private List<char> _sequence;
-        private List<char> _stack;
+        public List<char> Sequence { get; set; }
+        public List<char> Stack { get; set; }
 
-        private char _currentState;
+        public char CurrentState { get; set; }
         private System.Random _random_generator;
 
         public void SetUp()
         {
-            _sequence = new List<char>();
-            _stack = new List<char>();
+            Sequence = new List<char>();
+            Stack = new List<char>();
             _random_generator = new System.Random();
 
             int sequence_number;
             for (int i = 0; i < PlayerConsts.SEQUENCE_NUMBER; i ++)
             {
-                sequence_number = _random_generator.Next(1, 4);
+                sequence_number = _random_generator.Next(0, 4);
                 char sequence_state = Convert.ToChar(PlayerConsts.SEQUENCE_STATES[sequence_number]);
-                _sequence.Add(sequence_state);
+                Sequence.Add(sequence_state);
             }
 
-            sequence_number = _random_generator.Next(1, 4);
-            _currentState = Convert.ToChar(PlayerConsts.SEQUENCE_STATES[sequence_number]);
+            sequence_number = _random_generator.Next(0, 4);
+            CurrentState = Convert.ToChar(PlayerConsts.SEQUENCE_STATES[sequence_number]);
 
             string debug_seq = "";
-            foreach (char c in _sequence)
+            foreach (char c in Sequence)
             {
                 debug_seq += c;
             }
             Debug.Log(debug_seq);
         }
 
-        public char GetState()
-        {
-            return _currentState;
-        }
-
-        public List<char> GetSequence()
-        {
-            return _sequence;
-        }
-
         public void ReceiveState(char state)
         {
-            _currentState = state;
+            CurrentState = state;
 
-            if (_sequence[_stack.Count + 1] == state)
+            if (Sequence[Stack.Count] == state)
             {
-                _stack.Add(state);
-                if (_sequence.Count == _stack.Count)
+                Stack.Add(state);
+                if (Sequence.Count == Stack.Count)
                 {
                     //GAME ENDS THIS PLAYER WINS
                 }
             }
             else
             {
-                _stack.Clear();
+                Stack.Clear();
             }
         }
     }
