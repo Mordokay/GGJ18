@@ -9,6 +9,6 @@ namespace Assets.Scripts.Constants
     {
         public static int SEQUENCE_NUMBER = 5;
 
-        public static int[] SEQUENCE_STATES = { 65, 67, 71, 84 };
+        public static string[] SEQUENCE_STATES = { "A", "T", "G", "C" };
     }
 }

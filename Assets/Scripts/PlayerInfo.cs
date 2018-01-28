@@ -9,56 +9,63 @@ namespace Assets.Scripts
 {
     public class PlayerInfo : MonoBehaviour
     {
-        public List<char> Sequence { get; set; }
-        public List<char> Stack { get; set; }
+        public string Sequence { get; set; }
+        public string Stack { get; set; }
 
-        public char CurrentState;
+        public string CurrentState;
+
         private System.Random _random_generator;
 
         public void SetUp()
         {
-            Sequence = new List<char>();
-            Stack = new List<char>();
+            Sequence = "";
+            Stack = "";
+            CurrentState = "";
             _random_generator = new System.Random();
 
-            int sequence_number;
-            for (int i = 0; i < PlayerConsts.SEQUENCE_NUMBER; i ++)
-            {
-                sequence_number = _random_generator.Next(0, 4);
-                char sequence_state = Convert.ToChar(PlayerConsts.SEQUENCE_STATES[sequence_number]);
-                Sequence.Add(sequence_state);
+            for (int i = 0; i < PlayerConsts.SEQUENCE_NUMBER; i++) { 
+                Sequence += PlayerConsts.SEQUENCE_STATES[UnityEngine.Random.Range(0, PlayerConsts.SEQUENCE_STATES.Length)];
             }
 
-            sequence_number = _random_generator.Next(0, 4);
-            CurrentState = Convert.ToChar(PlayerConsts.SEQUENCE_STATES[sequence_number]);
-
-            string debug_seq = "";
-            foreach (char c in Sequence)
-            {
-                debug_seq += c;
-            }
-            Debug.Log(debug_seq);
+            CurrentState = PlayerConsts.SEQUENCE_STATES[UnityEngine.Random.Range(0, PlayerConsts.SEQUENCE_STATES.Length)];
         }
 
-        public void ReceiveState(char state)
+        public void ReceiveState(string state)
         {
-            if (!state.Equals(""))
+            CurrentState = state;
+            Debug.Log("CurrentState: " + CurrentState + " Sequence " + Sequence + " Sequence[Stack.Length] " + Sequence[Stack.Length]);
+            if (Sequence[Stack.Length].Equals(state[0]))
             {
-                CurrentState = state;
-
-                if (Sequence[Stack.Count].Equals(state))
+                Debug.Log("fuck yeah!!!");
+                Stack += state;
+                if (Sequence.Equals(Stack))
                 {
-                    Stack.Add(state);
-                    if (Sequence.Count == Stack.Count)
-                    {
-                        //GAME ENDS THIS PLAYER WINS
-                    }
-                }
-                else
-                {
-                    Stack.Clear();
+                    //GAME ENDS THIS PLAYER WINS
                 }
             }
+            else
+            {
+                Stack = "";
+            }
         }
+
+        private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.isWriting)
+            {
+                stream.SendNext(Sequence);
+                stream.SendNext(Stack);
+                stream.SendNext(CurrentState);
+                //Debug.Log("Writing!!!");
+            }
+            else 
+            {
+                Sequence = (string)stream.ReceiveNext();
+                Stack = (string)stream.ReceiveNext();
+                CurrentState = (string)stream.ReceiveNext();
+                //Debug.Log(((string)stream.ReceiveNext())[0]);
+            }
+        }
+
     }
 }

@@ -103,38 +103,34 @@ namespace Assets.Scripts
                 {
                     if (!hidding && timeSinceLastAbilityUse > abilityCooldown)
                     {
-                        GameObject wave = PhotonNetwork.Instantiate("Wave", this.transform.position, Quaternion.identity, 0, null);
-                        wave.GetComponent<SingleWaveManager>().State = _player_info.CurrentState;
+                        switch (_player_info.CurrentState)
+                        {
+                            case "A":
+                                PhotonNetwork.Instantiate("WaveA", this.transform.position, Quaternion.identity, 0);
+                                break;
+                            case "C":
+                                PhotonNetwork.Instantiate("WaveC", this.transform.position, Quaternion.identity, 0);
+                                break;
+                            case "G":
+                                PhotonNetwork.Instantiate("WaveG", this.transform.position, Quaternion.identity, 0);
+                                break;
+                            case "T":
+                                PhotonNetwork.Instantiate("WaveT", this.transform.position, Quaternion.identity, 0);
+                                break;
+                        }
+                        //GameObject wave = PhotonNetwork.Instantiate("Wave", this.transform.position, Quaternion.identity, 0);
+                        //wave.GetComponent<SingleWaveManager>().State = _player_info.CurrentState;
 
                         hidding = true;
                         //scallingDown = true;
                         timeSinceLastAbilityUse = 0.0f;
-                        PhotonNetwork.Instantiate("WaveSound" , this.transform.position, Quaternion.identity, 0, null);
+                        PhotonNetwork.Instantiate("WaveSound" , this.transform.position, Quaternion.identity, 0);
                     }
                 }
             }
-            _sequence_label.text = new string(_player_info.Sequence.ToArray<char>());
-            _stack_label.text = new string(_player_info.Stack.ToArray<char>());
-            _state_label.text = _player_info.CurrentState.ToString();
+            _sequence_label.text = _player_info.Sequence;
+            _stack_label.text = _player_info.Stack;
+            _state_label.text = _player_info.CurrentState;
         }
-
-        private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-        {
-            if (stream.isWriting)
-            {
-                stream.SendNext(new string(_player_info.Sequence.ToArray<char>()));
-                stream.SendNext(new string(_player_info.Stack.ToArray<char>()));
-                stream.SendNext(_player_info.CurrentState.ToString());
-
-            }
-            else
-            {
-                _player_info.Sequence = new List<char>(stream.ReceiveNext().ToString());
-                _player_info.Stack = new List<char>(stream.ReceiveNext().ToString());
-                _player_info.CurrentState = ((string)stream.ReceiveNext())[0];
-                //Debug.Log(((string)stream.ReceiveNext())[0]);
-            }
-        }
-
     }
 }

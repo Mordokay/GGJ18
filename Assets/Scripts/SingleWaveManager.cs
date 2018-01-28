@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SingleWaveManager : MonoBehaviour {
 
-    public char State { get; set; }
+    public string State;
     float timeSinceCreation;
     float waveTimeOfLife = 1.5f;
 
@@ -43,13 +43,26 @@ public class SingleWaveManager : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.gameObject.tag == "Player")
+        if (coll.gameObject.GetComponent<PhotonView>().isMine && coll.gameObject.tag == "Player")
         {
-            coll.gameObject.GetComponent<PlayerInfo>().ReceiveState(State);
-            coll.gameObject.GetComponent<PlayerManager>()._stack_label.text += State.ToString(); 
-            Debug.Log("Player " + coll.gameObject.name + "Hit.");
+            switch (this.gameObject.tag)
+            {
+                case "WaveA":
+                    coll.gameObject.GetComponent<PlayerInfo>().ReceiveState("A");
+                    break;
+                case "WaveC":
+                    coll.gameObject.GetComponent<PlayerInfo>().ReceiveState("C");
+                    break;
+                case "WaveG":
+                    coll.gameObject.GetComponent<PlayerInfo>().ReceiveState("G");
+                    break;
+                case "WaveT":
+                    coll.gameObject.GetComponent<PlayerInfo>().ReceiveState("T");
+                    break;
+            }
+            //coll.gameObject.GetComponent<PlayerInfo>().ReceiveState(State);
+            //coll.gameObject.GetComponent<PlayerManager>()._stack_label.text += State;
+            //Debug.Log("Player " + coll.gameObject.name + "Hit.");
         }
-            
-
     }
 }
