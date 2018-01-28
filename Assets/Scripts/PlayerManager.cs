@@ -37,22 +37,38 @@ namespace Assets.Scripts
 
         void Start()
         {
-            gameEnded = false;
-            _Nickname.text = PhotonNetwork.playerName;
+            m_photon_view = GetComponent<PhotonView>();
             m_sprite = GetComponentInParent<SpriteRenderer>();
+
+            _player_info = GetComponent<PlayerInfo>();
+            _player_info.SetUp();
+            
+           _Nickname.text = _player_info._player_name;
+            
+            gameEnded = false;
+            
+            //foreach (PhotonPlayer player in PhotonNetwork.playerList)
+            //{
+            //    Debug.Log("Looking: " + player.NickName);
+            //    Debug.Log("ViewName: " + m_photon_view.name);
+            //    if (player.NickName)
+            //    {
+            //        Debug.Log("Got: " + player.NickName);
+            //        _Nickname.text = PhotonNetwork.playerName;
+            //    }
+            //}
+            
 
             _stack_label.text = "";
             _sequence_label.text = "";
             _state_label.text = "";
-
-            _player_info = GetComponent<PlayerInfo>();
-            _player_info.SetUp();
+            
             Vector3 sequence_label_position = new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z);
             Vector3 stack_label_position = new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z);
             _sequence_label.gameObject.transform.position = sequence_label_position;
             _stack_label.gameObject.transform.position = stack_label_position;
 
-            m_photon_view = GetComponent<PhotonView>();
+            
 
             if (PhotonNetwork.playerList.Count() <= PlayerConsts.PLAYER_NUMBER)
             {
