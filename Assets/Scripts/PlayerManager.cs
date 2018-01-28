@@ -94,7 +94,7 @@ namespace Assets.Scripts
                         Debug.Log("You Lose!!!");
                     }
                     gameEnded = true;
-                    Time.timeScale = 0.0f;
+                    //Time.timeScale = 0.0f;
                 }
             }
         }
