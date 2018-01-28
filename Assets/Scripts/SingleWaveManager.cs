@@ -46,6 +46,7 @@ public class SingleWaveManager : MonoBehaviour {
         if (coll.gameObject.tag == "Player")
         {
             coll.gameObject.GetComponent<PlayerInfo>().ReceiveState(State);
+            coll.gameObject.GetComponent<PlayerManager>()._stack_label.text += State.ToString(); 
             Debug.Log("Player " + coll.gameObject.name + "Hit.");
         }
             

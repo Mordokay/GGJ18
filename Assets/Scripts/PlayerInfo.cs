@@ -12,7 +12,7 @@ namespace Assets.Scripts
         public List<char> Sequence { get; set; }
         public List<char> Stack { get; set; }
 
-        public char CurrentState { get; set; }
+        public char CurrentState;
         private System.Random _random_generator;
 
         public void SetUp()
@@ -42,19 +42,22 @@ namespace Assets.Scripts
 
         public void ReceiveState(char state)
         {
-            CurrentState = state;
+            if (!state.Equals(""))
+            {
+                CurrentState = state;
 
-            if (Sequence[Stack.Count] == state)
-            {
-                Stack.Add(state);
-                if (Sequence.Count == Stack.Count)
+                if (Sequence[Stack.Count].Equals(state))
                 {
-                    //GAME ENDS THIS PLAYER WINS
+                    Stack.Add(state);
+                    if (Sequence.Count == Stack.Count)
+                    {
+                        //GAME ENDS THIS PLAYER WINS
+                    }
                 }
-            }
-            else
-            {
-                Stack.Clear();
+                else
+                {
+                    Stack.Clear();
+                }
             }
         }
     }

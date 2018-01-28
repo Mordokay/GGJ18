@@ -97,10 +97,6 @@ namespace Assets.Scripts
         }
         */
 
-
-            Vector3 label_position = new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z);
-            _sequence_label.gameObject.transform.position = label_position;
-
             if (m_photon_view.isMine)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
@@ -113,6 +109,7 @@ namespace Assets.Scripts
                         hidding = true;
                         //scallingDown = true;
                         timeSinceLastAbilityUse = 0.0f;
+                        PhotonNetwork.Instantiate("WaveSound" , this.transform.position, Quaternion.identity, 0, null);
                     }
                 }
             }
@@ -128,12 +125,14 @@ namespace Assets.Scripts
                 stream.SendNext(new string(_player_info.Sequence.ToArray<char>()));
                 stream.SendNext(new string(_player_info.Stack.ToArray<char>()));
                 stream.SendNext(_player_info.CurrentState.ToString());
+
             }
             else
             {
                 _player_info.Sequence = new List<char>(stream.ReceiveNext().ToString());
                 _player_info.Stack = new List<char>(stream.ReceiveNext().ToString());
-                _player_info.CurrentState = stream.ReceiveNext().ToString().ToCharArray()[0];
+                _player_info.CurrentState = ((string)stream.ReceiveNext())[0];
+                //Debug.Log(((string)stream.ReceiveNext())[0]);
             }
         }
 
