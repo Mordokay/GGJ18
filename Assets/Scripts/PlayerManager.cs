@@ -35,7 +35,6 @@ namespace Assets.Scripts
         {
             m_sprite = GetComponentInParent<SpriteRenderer>();
 
-            //just for testing purposes
             _stack_label.text = "";
             _sequence_label.text = "";
             _state_label.text = "";
@@ -51,17 +50,39 @@ namespace Assets.Scripts
 
             if (PhotonNetwork.playerList.Count() <= PlayerConsts.PLAYER_NUMBER)
             {
-                GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(0).gameObject.SetActive(true);
-                GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(0).GetComponentInChildren<Text>().text = "Waiting for 3 Players...";
+                GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(2).gameObject.SetActive(true);
+                GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(2).GetComponentInChildren<Text>().text = "Waiting for 3 Players...";
+            }
+        }
+
+        void CheckWin()
+        {
+            foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                if(player.GetComponent<PlayerInfo>().Sequence != "" && player.GetComponent<PlayerInfo>().Sequence.Equals(player.GetComponent<PlayerInfo>().Stack))
+                {
+                    if (player.GetComponent<PhotonView>().isMine)
+                    {
+                        GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(0).gameObject.SetActive(true);
+                        Debug.Log("You Win!!!");
+                    }
+                    else
+                    {
+                        GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(1).gameObject.SetActive(true);
+                        Debug.Log("You Lose!!!");
+                    }
+                    Time.timeScale = 0.0f;
+                }
             }
         }
 
         void Update()
         {
+            CheckWin();
             if (PhotonNetwork.playerList.Count() >= PlayerConsts.PLAYER_NUMBER)
             {
                 game_started = true;
-                GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(0).gameObject.SetActive(false);
+                GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(2).gameObject.SetActive(false);
             }
 
             if (game_started)
@@ -190,9 +211,9 @@ namespace Assets.Scripts
                     }
                 }
             }
-            _sequence_label.text = _player_info.Sequence;
-            _stack_label.text = _player_info.Stack;
-            _state_label.text = _player_info.CurrentState;
+            //_sequence_label.text = _player_info.Sequence;
+            //_stack_label.text = _player_info.Stack;
+            //_state_label.text = _player_info.CurrentState;
 
         }
 

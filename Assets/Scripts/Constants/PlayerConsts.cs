@@ -11,8 +11,7 @@ namespace Assets.Scripts.Constants
 
         public static string[] SEQUENCE_STATES = { "A", "T", "G", "C" };
 
-        public static int PLAYER_NUMBER = 1;
-
+        public static int PLAYER_NUMBER = 2;
     }
 
 }
