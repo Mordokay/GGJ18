@@ -41,10 +41,10 @@ public class PlayerMovementController : MonoBehaviour
 
     private void SmoothMove()
     {
-        if(Vector3.Distance(TargetPosition, transform.position) > 0.05f)
-        {
-            transform.position = Vector3.Lerp(transform.position, TargetPosition, 0.25f);
-        }
+        //if(Vector3.Distance(TargetPosition, transform.position) > 0.05f)
+        //{
+            transform.position = Vector3.Lerp(transform.position, TargetPosition, 0.3f);
+        //}
         //transform.rotation = Quaternion.RotateTowards(transform.rotation, TargetRotation, 500 * Time.deltaTime);
     }
 

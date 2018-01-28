@@ -13,9 +13,11 @@ public class SingleWaveManager : MonoBehaviour {
     }
 
     void Update () {
+
         if (timeSinceCreation > waveTimeOfLife)
         {
-            Destroy(this.gameObject);
+            PhotonNetwork.Destroy(this.gameObject);
+            return;
         }
 
         timeSinceCreation += Time.deltaTime;
@@ -34,5 +36,10 @@ public class SingleWaveManager : MonoBehaviour {
         }
     }
 
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.tag == "Enemy")
+            coll.gameObject.SendMessage("ApplyDamage", 10);
 
+    }
 }

@@ -114,22 +114,6 @@ namespace Assets.Scripts
                         timeSinceLastAbilityUse = 0.0f;
                     }
                 }
-                if (Input.GetKeyDown(KeyCode.Alpha1))
-                {
-                    _sequence_label.text = "1111111";
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha2))
-                {
-                    _sequence_label.text = "222222";
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha3))
-                {
-                    _sequence_label.text = "333333";
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha4))
-                {
-                    _sequence_label.text = "444444";
-                }
             }
             _sequence_label.text = new string(_player_info.Sequence.ToArray<char>());
             _stack_label.text = new string(_player_info.Stack.ToArray<char>());
@@ -140,7 +124,6 @@ namespace Assets.Scripts
         {
             if (stream.isWriting)
             {
-               
                 stream.SendNext(new string(_player_info.Sequence.ToArray<char>()));
                 stream.SendNext(new string(_player_info.Stack.ToArray<char>()));
                 stream.SendNext(_player_info.CurrentState.ToString());
