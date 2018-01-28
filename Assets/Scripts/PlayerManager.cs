@@ -16,8 +16,6 @@ namespace Assets.Scripts
         public Text _state_label;
         PhotonView m_photon_view;
 
-        int counter;
-
         bool hidding = false;
         float hiddenTime = 0.0f;
         /*
@@ -30,7 +28,6 @@ namespace Assets.Scripts
         void Start()
         {
             //just for testing purposes
-            counter = 0;
             _stack_label.text = "";
             _sequence_label.text = "";
 
@@ -110,8 +107,6 @@ namespace Assets.Scripts
                 {
                     if (!hidding && timeSinceLastAbilityUse > abilityCooldown)
                     {
-                        counter += 1;
-                        _state_label.text = counter.ToString();
                         PhotonNetwork.Instantiate("Wave", this.transform.position, Quaternion.identity, 0, null);
 
                         hidding = true;
@@ -145,24 +140,16 @@ namespace Assets.Scripts
         {
             if (stream.isWriting)
             {
-                stream.SendNext(_sequence_label.text);
-                stream.SendNext(counter);
-                //stream.SendNext(transform.rotation);
+               
                 stream.SendNext(new string(_player_info.Sequence.ToArray<char>()));
                 stream.SendNext(new string(_player_info.Stack.ToArray<char>()));
                 stream.SendNext(_player_info.CurrentState.ToString());
             }
             else
             {
-                _sequence_label.text = (string)stream.ReceiveNext();
-                counter = (int)stream.ReceiveNext();
-                _state_label.text = counter.ToString();
-
                 _player_info.Sequence = new List<char>(stream.ReceiveNext().ToString());
                 _player_info.Stack = new List<char>(stream.ReceiveNext().ToString());
                 _player_info.CurrentState = stream.ReceiveNext().ToString().ToCharArray()[0];
-
-                //TargetRotation = (Quaternion)stream.ReceiveNext();
             }
         }
 
