@@ -19,6 +19,16 @@ public class MenuManager : MonoBehaviour {
         isMuted = false;
        // AudioListener.pause = false;
         volumeSlider.value = PlayerPrefs.GetFloat("volume");
+        if (!PlayerPrefs.HasKey("volume"))
+        {
+            PlayerPrefs.SetFloat("volume", 0.5f);
+            AudioListener.volume = 0.5f;
+            volumeSlider.value = 0.5f;
+        }
+        else
+        {
+            volumeSlider.value = PlayerPrefs.GetFloat("volume");
+        }
     }
 
     private void Update()
