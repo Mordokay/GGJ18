@@ -13,6 +13,7 @@ TagManager:
   - ResourceG
   - ResourceC
   - WinPanel
+  - PlayerCanvas
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - 
   - 
   - Waves
-  - 
+  - Resources
   - 
   - 
   - 
