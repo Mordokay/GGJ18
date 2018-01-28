@@ -49,7 +49,7 @@ namespace Assets.Scripts
 
             m_photon_view = GetComponent<PhotonView>();
 
-            if (PhotonNetwork.playerList.Count() >= PlayerConsts.PLAYER_NUMBER)
+            if (PhotonNetwork.playerList.Count() <= PlayerConsts.PLAYER_NUMBER)
             {
                 GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(0).gameObject.SetActive(true);
                 GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(0).GetComponentInChildren<Text>().text = "Waiting for 3 Players...";
@@ -190,9 +190,9 @@ namespace Assets.Scripts
                     }
                 }
             }
-            //_sequence_label.text = _player_info.Sequence;
-            //_stack_label.text = _player_info.Stack;
-            //_state_label.text = _player_info.CurrentState;
+            _sequence_label.text = _player_info.Sequence;
+            _stack_label.text = _player_info.Stack;
+            _state_label.text = _player_info.CurrentState;
 
         }
 
