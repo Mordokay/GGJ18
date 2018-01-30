@@ -25,7 +25,7 @@ namespace Assets.Scripts
 
         public bool game_started = false;
 
-        bool hidding = false;
+        public bool hidding = false;
         float hiddenTime = 0.0f;
         /*
         bool scallingDown = false;
@@ -42,22 +42,8 @@ namespace Assets.Scripts
 
             _player_info = GetComponent<PlayerInfo>();
             _player_info.SetUp();
-            
-           _Nickname.text = _player_info._player_name;
-            
-            gameEnded = false;
-            
-            //foreach (PhotonPlayer player in PhotonNetwork.playerList)
-            //{
-            //    Debug.Log("Looking: " + player.NickName);
-            //    Debug.Log("ViewName: " + m_photon_view.name);
-            //    if (player.NickName)
-            //    {
-            //        Debug.Log("Got: " + player.NickName);
-            //        _Nickname.text = PhotonNetwork.playerName;
-            //    }
-            //}
-            
+
+            gameEnded = false;          
 
             _stack_label.text = "";
             _sequence_label.text = "";
@@ -67,8 +53,6 @@ namespace Assets.Scripts
             Vector3 stack_label_position = new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z);
             _sequence_label.gameObject.transform.position = sequence_label_position;
             _stack_label.gameObject.transform.position = stack_label_position;
-
-            
 
             if (PhotonNetwork.playerList.Count() <= PlayerConsts.PLAYER_NUMBER)
             {
@@ -179,16 +163,11 @@ namespace Assets.Scripts
                             UnityEngine.Random.Range(-13.0f, 13.4f), 0.0f), Quaternion.identity, 0);
                         hasC += 1;
                     }
-                    //Debug.Log("I am the master!!! with " + result);
-                }
-                else
-                {
-                    //Debug.Log("I am NOT the master!!!");
                 }
                 if (hidding)
                 {
                     hiddenTime += Time.deltaTime;
-                    if (hiddenTime > 0.5f)
+                    if (hiddenTime > 0.75f)
                     {
                         hidding = false;
                         hiddenTime = 0.0f;
@@ -223,26 +202,26 @@ namespace Assets.Scripts
                                     PhotonNetwork.Instantiate("WaveT", this.transform.position, Quaternion.identity, 0);
                                     break;
                             }
-                            //GameObject wave = PhotonNetwork.Instantiate("Wave", this.transform.position, Quaternion.identity, 0);
-                            //wave.GetComponent<SingleWaveManager>().State = _player_info.CurrentState;
-
                             hidding = true;
-                            //scallingDown = true;
                             timeSinceLastAbilityUse = 0.0f;
 
                             this.GetComponent<CircleCollider2D>().enabled = false;
 
                             PhotonNetwork.Instantiate("WaveSound1", this.transform.position, Quaternion.identity, 0);
 
-                            StartCoroutine(FadeTo(0.1f, 0.5f));
+                            m_photon_view.RPC("FadePlayers", PhotonTargets.All);
                         }
                     }
                 }
             }
-            //_sequence_label.text = _player_info.Sequence;
-            //_stack_label.text = _player_info.Stack;
-            //_state_label.text = _player_info.CurrentState;
+            _Nickname.text = _player_info._player_name;
+        }
 
+        [PunRPC]
+        public void FadePlayers()
+        {
+            hidding = true;
+            StartCoroutine(FadeTo(0.1f, 0.5f));
         }
 
         IEnumerator FadeTo(float aValue, float aTime)

@@ -338,7 +338,6 @@ namespace Assets.Scripts
                 stream.SendNext(Stack);
                 stream.SendNext(CurrentState);
                 stream.SendNext(_player_name);
-                //Debug.Log("Writing!!!");
             }
             else
             {
@@ -348,10 +347,8 @@ namespace Assets.Scripts
                 _player_name = (string)stream.ReceiveNext();
 
                 ChangeSprite();
-
                 UpdateStack();
                 SetupSequence();
-                //Debug.Log(((string)stream.ReceiveNext())[0]);
             }
         }
 

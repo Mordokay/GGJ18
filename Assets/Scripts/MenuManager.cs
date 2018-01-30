@@ -33,7 +33,6 @@ public class MenuManager : MonoBehaviour {
 
     private void Update()
     {
-        Debug.Log(PlayerPrefs.GetFloat("volume"));
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (menuCanvas.activeSelf)
