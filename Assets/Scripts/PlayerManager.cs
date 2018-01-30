@@ -86,11 +86,13 @@ namespace Assets.Scripts
                     if (player.GetComponent<PhotonView>().isMine)
                     {
                         GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(0).gameObject.SetActive(true);
+                        GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(0).transform.GetChild(0).gameObject.GetComponent<Text>().text = "You Win!";
                         Debug.Log("You Win!!!");
                     }
                     else
                     {
                         GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(1).gameObject.SetActive(true);
+                        GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(1).transform.GetChild(0).gameObject.GetComponent<Text>().text = "You Lost! "+ System.Environment.NewLine + " Player " + player.GetComponent<PlayerInfo>()._player_name + " won.";
                         Debug.Log("You Lose!!!");
                     }
                     gameEnded = true;
