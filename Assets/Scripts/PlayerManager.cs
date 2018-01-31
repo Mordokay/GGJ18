@@ -14,10 +14,6 @@ namespace Assets.Scripts
        // public List<Sprite> 
 
         private PlayerInfo _player_info;
-
-        public Text _sequence_label;
-        public Text _stack_label;
-        public Text _state_label;
         public Text _Nickname;
 
         PhotonView m_photon_view;
@@ -32,7 +28,7 @@ namespace Assets.Scripts
         bool scallingUp = false;
         */
         float timeSinceLastAbilityUse = 0.0f;
-        public float abilityCooldown = 1.0f;
+        public float abilityCooldown = 3.0f;
         public bool gameEnded;
 
         void Start()
@@ -44,15 +40,9 @@ namespace Assets.Scripts
             _player_info.SetUp();
 
             gameEnded = false;          
-
-            _stack_label.text = "";
-            _sequence_label.text = "";
-            _state_label.text = "";
             
             Vector3 sequence_label_position = new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z);
             Vector3 stack_label_position = new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z);
-            _sequence_label.gameObject.transform.position = sequence_label_position;
-            _stack_label.gameObject.transform.position = stack_label_position;
 
             if (PhotonNetwork.playerList.Count() <= PlayerConsts.PLAYER_NUMBER)
             {
@@ -185,7 +175,7 @@ namespace Assets.Scripts
                 {
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
-                        if (!hidding && timeSinceLastAbilityUse > abilityCooldown)
+                        if (!hidding && (timeSinceLastAbilityUse > abilityCooldown))
                         {
                             switch (_player_info.CurrentState)
                             {

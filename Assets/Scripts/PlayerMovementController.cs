@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMovementController : MonoBehaviour
 {
 
-    public float velocity = 2.0f;
+    public float velocity = 2.5f;
 
     private PhotonView m_photon_view;
     private Vector3 TargetPosition;
