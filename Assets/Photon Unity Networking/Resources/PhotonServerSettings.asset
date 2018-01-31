@@ -44,4 +44,5 @@ MonoBehaviour:
   - TaggedPlayer
   - UpdateLabel
   - UpdateLabel2
+  - FadePlayers
   DisableAutoOpenWizard: 1
