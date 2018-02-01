@@ -23,10 +23,7 @@ namespace Assets.Scripts
 
         public bool hidding = false;
         float hiddenTime = 0.0f;
-        /*
-        bool scallingDown = false;
-        bool scallingUp = false;
-        */
+
         float timeSinceLastAbilityUse = 0.0f;
         public float abilityCooldown = 3.0f;
         public bool gameEnded;
@@ -69,8 +66,15 @@ namespace Assets.Scripts
                         GameObject.FindGameObjectWithTag("WinPanel").transform.GetChild(1).transform.GetChild(0).gameObject.GetComponent<Text>().text = "You Lost! "+ System.Environment.NewLine + " Player " + player.GetComponent<PlayerInfo>()._player_name + " won.";
                         Debug.Log("You Lose!!!");
                     }
+
                     gameEnded = true;
-                    //Time.timeScale = 0.0f;
+                    if (m_photon_view.isMine)
+                        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
+                    if (!gameEnded)
+                    {
+                        CheckWin();
+                    }
                 }
             }
         }
@@ -157,7 +161,7 @@ namespace Assets.Scripts
                 if (hidding)
                 {
                     hiddenTime += Time.deltaTime;
-                    if (hiddenTime > 0.75f)
+                    if (hiddenTime > 1.0f)
                     {
                         hidding = false;
                         hiddenTime = 0.0f;

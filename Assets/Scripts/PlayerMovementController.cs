@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 public class PlayerMovementController : MonoBehaviour
 {
 
-    public float velocity = 2.5f;
+    public float velocity = 3f;
 
     private PhotonView m_photon_view;
     private Vector3 TargetPosition;
@@ -62,27 +63,27 @@ public class PlayerMovementController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            myVelocity += Vector3.up * velocity;
+            myVelocity += Vector3.up;
             isClicking = true;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            myVelocity -= Vector3.right * velocity;
+            myVelocity -= Vector3.right;
             isClicking = true;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            myVelocity -= Vector3.up * velocity;
+            myVelocity -= Vector3.up;
             isClicking = true;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            myVelocity += Vector3.right * velocity;
+            myVelocity += Vector3.right;
             isClicking = true;
         }
 
         if (isClicking)
-            this.GetComponent<Rigidbody2D>().velocity = myVelocity;
+            this.GetComponent<Rigidbody2D>().velocity = myVelocity.normalized * velocity;
         else
             this.GetComponent<Rigidbody2D>().velocity /= 1.05f;
 
